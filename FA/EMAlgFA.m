@@ -1,6 +1,4 @@
 function [hlambda, hpsi, ind_llh] = EMAlg(X,k)
-% Purpose: given data, sample covariance matrix, and parameters p,k,n,
-% generate estimates based on EM algorithm;
 
 p = size(X,1);
 n = size(X,2);
@@ -8,7 +6,7 @@ n = size(X,2);
 Cxx = (1/n)*(X*X'); 
 
 % Initial guess of lambda and psi;
-[hlambda, hpsi] = factoran(X',k);
+[hlambda, hpsi] = factoran(X',k, 'maxit', 1000);
 
 % Tolerance parameters for EM alg
 tol = 1e-15;
@@ -34,7 +32,6 @@ for iter = 2:maxiter
     
 end
 
-%llh = llh(2:iter);
 ind_llh = loglike; %log likelihood for each individual
 
 end
