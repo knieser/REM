@@ -9,7 +9,7 @@ Includes:
 - FA_sim_main
 - FA_data_sim
 - SigmaSim
-- SigmaSim_Normal
+- SigmaSimNormals
 - computeCongruence
 - FA_sample_data
 - FA_estimates
@@ -26,5 +26,16 @@ comparing EM and REM estimation of Gaussian mixture model parameters
 under model misspecification.
 
 Includes:
+- LPA_sim_main
+- LPA_data_sim
+- LPA_estimates
+- globalRobustEMAlgMixture
+- RobustEMAlgMixture
+- EMAlgMixture
+- checkEps
+- makeFigures
+- PrettyFig
+
+
 
 

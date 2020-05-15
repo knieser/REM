@@ -1,76 +1,80 @@
-function [est_gmm,est_gmm_2,est_weights,est_gamma,opt_eps] = LPA_sim_main(X,k_choice,global_iter,delta,step,seed)
+function [est_gmm,est_gmm_2, weights, est_gamma, opt_eps] = LPA_sim_main(sim,k,delta)
+% Sim Key
+% 1 = No corruption
+% 2 = Scattered minority
+% 3 = Scattered minority w cross
 
-rng(seed)
-    
-% Set # iterations for epsilon search;
-maxiter = step+1;
-    
+% e.g. LPA_sim_main(1,2,0.05);
+  
+%%%%%%%% Parameters %%%%%%%%%%%
 
-%%%%%%% Initialize %%%%%%%%%%%%
+% Number of starting points for global optimization;
+global_iter = 300;
 
-est_mu = cell(length(k_choice),1);
-est_sigma = cell(length(k_choice),1);
-est_mix = cell(length(k_choice),1);
+% Number of iterations to search for epsilon;
+step = 100;
 
+% Simulated data parameters;
+p_0 = 2; % number of dimensions of data;
+k_0 = 3; % true number of clusters;
+n = 1000;
+mix = [0.6 0.3 0.1];
+   
 
-%%%%%%%% Estimation %%%%%%%%%%%%%
+%%%%%%% Make data %%%%%%%%%
 
-for k = 1:length(k_choice)
-
-     % Get estimates from EM; 
-     
-    disp('Starting global opt for EM...')
-       
-    [est_mu{k}, est_sigma{k}, est_mix{k}, ~, ~, ~, ~, ind_llh] ...
-        = globalRobustEMAlgMixture(X,k_choice(k),global_iter,0,0);  
-    
-    disp('...done')
-    
-    
-    % Get estimates from REM;
-    chk = zeros(1,maxiter);
-    est_gamma = zeros(1,maxiter);
-    
-    eps_max = quantile(exp(ind_llh), 0.50); % Median likelihood value;
-    eps_range = 0:eps_max/step:eps_max;
-    
-    
-    % Get initial seeds;
-    GMModel = fitgmdist(X',k_choice(k),'Options',statset('MaxIter',500));
-    intl_sigma = GMModel.Sigma;
-    intl_mix = GMModel.ComponentProportion;
-       
-    % Global optimization to get starting mu;
-    eps_start = quantile(exp(ind_llh),0.05);
-    disp('Starting global opt for REM...')
-    [intl_mu] = globalRobustEMAlgMixture(X, k_choice(k), global_iter, eps_start,1);
-    disp('...done')
- 
-    for iter = 1:maxiter
-    
-        % Get REM estimates;
-        [mu, sigma, mix, ~, est_gamma(iter), est_weights] ...
-            = RobustEMAlgMixture(X,k_choice(k),eps_range(iter), intl_mu, intl_sigma, intl_mix);
-        
-        % Calculate prob. that weights <= 1/2;
-        chk(iter) = checkEps(mu,sigma,mix,est_gamma(iter),eps_range(iter));
-                
-        if chk(iter) > delta 
-            break;
-        end
-    end
-    
-    % Truncate gamma and chk;
-    chk = chk(1:iter);
-    est_gamma = est_gamma(1:iter);
-               
-    opt_eps = eps_range(iter);
-    
-end 
-
-est_gmm = gmdistribution(est_mu{k}', est_sigma{k}, est_mix{k});
-est_gmm_2 = gmdistribution(mu', sigma, mix);
+[X, grp_flag] = LPA_data_sim(sim,p_0,k_0,n,mix);
 
 
+%%%%%%% Run simulation %%%%%%%
+
+[est_gmm, est_gmm_2, est_weights, est_gamma, opt_eps] = LPA_estimates(X,k,delta,global_iter,step);
+
+% Add flag for minority group;
+minority = [grp_flag grp_flag > k];
+weights = [est_weights minority(:,2)];
+
+
+%%%%% Make figures %%%%%%
+
+figure;
+hold on
+scatter(X(1,:), X(2,:),50,[0.3,0.3,0.3],'Marker','.')
+xlabel('Domain A')
+ylabel('Domain B')
+PrettyFig
+legend off
+title('Simulated Data')
+xlim([0,10])
+ylim([0,10])
+hold off
+%print('Sim3_Data','-dpng','-r300');
+
+
+makeFigures(X,est_gmm);
+title('Classic')
+xlim([0,10])
+ylim([0,10])
+%print('Sim1_Classic_K3','-dpng','-r300')
+
+
+makeFigures(X,est_gmm_2);
+title('Robust')
+xlim([0,10])
+ylim([0,10])
+%print('Sim1_Robust_K3','-dpng','-r300')
+
+figure;
+hold on
+histogram(weights(weights(:,2) == 0,1))
+histogram(weights(weights(:,2) == 1,1))
+xlabel('Weight')
+ylabel('Count')
+PrettyFig
+legend('Majority','Minority','Location','northwest')
+title('Weight Distribution')
+
     
+save LPA_output_5_15_20;
+
 end
