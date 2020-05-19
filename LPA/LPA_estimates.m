@@ -6,7 +6,7 @@ maxiter = step+1;
     
 % Get estimates from EM; 
  
-disp('Starting global opt for EM...')
+disp('Starting EM global opt...')
    
 [mu_1, sigma_1, mix_1, ~, ~, ~, ~, ind_llh] ...
     = globalRobustEMAlgMixture(X,k,global_iter,0,0);  
@@ -30,7 +30,7 @@ intl_mix = GMModel.ComponentProportion;
 % Global optimization to get starting mu;
 eps_start = quantile(exp(ind_llh),0.05);
 
-disp('Starting global opt for REM...')
+disp('Searching for REM global opt...')
 
 [intl_mu] = globalRobustEMAlgMixture(X, k, global_iter,eps_start,1);
 

@@ -18,12 +18,12 @@ step = 100;
 p_0 = 2; % number of dimensions of data;
 k_0 = 3; % true number of clusters;
 n = 1000;
-mix = [0.6 0.3 0.1];
+mix = [0.70 0.20 0.10];
    
 
 %%%%%%% Make data %%%%%%%%%
 
-[X, grp_flag] = LPA_data_sim(sim,p_0,k_0,n,mix);
+[X, true_gmm, grp_flag] = LPA_data_sim(sim,p_0,k_0,n,mix);
 
 
 %%%%%%% Run simulation %%%%%%%
@@ -37,44 +37,41 @@ weights = [est_weights minority(:,2)];
 
 %%%%% Make figures %%%%%%
 
-figure;
-hold on
-scatter(X(1,:), X(2,:),50,[0.3,0.3,0.3],'Marker','.')
-xlabel('Domain A')
-ylabel('Domain B')
-PrettyFig
-legend off
-title('Simulated Data')
-xlim([0,10])
-ylim([0,10])
-hold off
-%print('Sim3_Data','-dpng','-r300');
+true_gmm = gmdistribution(true_gmm.mu(1:k,:), true_gmm.Sigma(:,:,1:k), true_gmm.ComponentProportion(1:k));
 
+makeFigures(X,true_gmm);
+%title('Simulated Data')
+xlim([0,10]); xticks(0:5:10); ylim([0,10]); yticks(0:5:10);
+print1 = ['Sim_',num2str(sim),'_k_',num2str(k),'_delta_', num2str(100*delta),'pct_true_gmm_',date];
+print(print1,'-dpng','-r300');
 
 makeFigures(X,est_gmm);
-title('Classic')
-xlim([0,10])
-ylim([0,10])
-%print('Sim1_Classic_K3','-dpng','-r300')
-
+%title('Classic')
+xlim([0,10]); xticks(0:5:10); ylim([0,10]); yticks(0:5:10);
+print2 = ['Sim_', num2str(sim),'_k_',num2str(k),'_delta_', num2str(100*delta),'pct_EM_gmm_',date];
+print(print2,'-dpng','-r300');
 
 makeFigures(X,est_gmm_2);
-title('Robust')
-xlim([0,10])
-ylim([0,10])
-%print('Sim1_Robust_K3','-dpng','-r300')
+%title('Robust')
+xlim([0,10]); xticks(0:5:10); ylim([0,10]); yticks(0:5:10);
+print3 = ['Sim_', num2str(sim),'_k_',num2str(k),'_delta_', num2str(100*delta),'pct_REM_gmm_',date];
+print(print3,'-dpng','-r300');
 
 figure;
 hold on
-histogram(weights(weights(:,2) == 0,1))
-histogram(weights(weights(:,2) == 1,1))
-xlabel('Weight')
-ylabel('Count')
+histogram(weights(weights(:,2) == 0,1),20,'Normalization','probability')
+histogram(weights(weights(:,2) == 1,1),20,'Normalization','probability')
+xlabel('Weight'); xlim([0,1]); xticks(0:0.25:1); 
+ylabel('Frequency'); ylim([0,1]); yticks(0:0.25:1);
 PrettyFig
-legend('Majority','Minority','Location','northwest')
-title('Weight Distribution')
+legend('Majority','Minority','Location','southoutside','Orientation','horizontal','FontSize',10)
+%title('Weight Distribution')
+print4 = ['Sim_', num2str(sim),'_k_',num2str(k),'_delta_', num2str(100*delta),'pct_weights_',date];
+print(print4,'-dpng','-r300');
 
-    
-save LPA_output_5_15_20;
+close all;
+
+print5 = ['LPA_output_Sim_', num2str(sim),'_k_',num2str(k),'_delta_', num2str(100*delta)'];
+save(print5);
 
 end
