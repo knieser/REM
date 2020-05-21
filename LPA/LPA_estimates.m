@@ -1,18 +1,13 @@
 function [est_gmm,est_gmm_2,est_weights,est_gamma,opt_eps] = LPA_estimates(X,k,delta,global_iter,step)
-
     
 % Set # iterations for epsilon search;
 maxiter = step+1;
     
 % Get estimates from EM; 
- 
 disp('Starting EM global opt...')
-   
 [mu_1, sigma_1, mix_1, ~, ~, ~, ~, ind_llh] ...
     = globalRobustEMAlgMixture(X,k,global_iter,0,0);  
-
 disp('...done')
-
 
 % Get estimates from REM;
 chk = zeros(1,maxiter);
@@ -25,15 +20,11 @@ eps_range = 0:eps_max/step:eps_max;
 GMModel = fitgmdist(X',k,'Options',statset('MaxIter',500));
 intl_sigma = GMModel.Sigma;
 intl_mix = GMModel.ComponentProportion;
-   
 
 % Global optimization to get starting mu;
 eps_start = quantile(exp(ind_llh),0.05);
-
 disp('Searching for REM global opt...')
-
 [intl_mu] = globalRobustEMAlgMixture(X, k, global_iter,eps_start,1);
-
 disp('...done')
 
 for iter = 1:maxiter
@@ -51,10 +42,7 @@ for iter = 1:maxiter
 end
         
 opt_eps = eps_range(iter);
-
 est_gmm = gmdistribution(mu_1', sigma_1, mix_1);
 est_gmm_2 = gmdistribution(mu_2', sigma_2, mix_2);
 
-
-    
 end
