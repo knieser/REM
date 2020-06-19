@@ -5,11 +5,13 @@ function [true_gmm,est_gmm,est_gmm_2,weights,est_gamma,opt_eps] = LPA_sim_main(s
 % 3 = Scattered minority w cross
 
 % e.g. LPA_sim_main(1,2,0.05);
-  
+
+seed = rng(444);
+
 %%%%%%%%%%% Parameters %%%%%%%%%%%%%%%
 
 % Number of starting points for global optimization;
-global_iter = 300;
+global_iter = 500;
 
 % Number of iterations to search for epsilon;
 step = 100;
@@ -23,20 +25,20 @@ mix = [0.70 0.20 0.10];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Make data
-[X, true_gmm, grp_flag] = LPA_data_sim(sim_num,p_0,k_0,n,mix);
+[X, true_gmm, grp_flag] = LPA_data_sim(sim_num,p_0,k_0,n,mix,seed);
 
 % Compute AIC and BIC
 AIC = 1:k_0+1;
 BIC = 1:k_0+1;
 
-for j = 1:k_0+1
+for j = 1:5
     gmmfit = fitgmdist(X',j);
     AIC(j) = gmmfit.AIC;
     BIC(j) = gmmfit.BIC;
 end
 
 % Get estimates
-[est_gmm, est_gmm_2, est_weights, est_gamma, opt_eps] = LPA_estimates(X,k,delta,global_iter,step);
+[est_gmm, est_gmm_2, est_weights, est_gamma, opt_eps] = LPA_estimates(X,k,delta,global_iter,step,seed);
 
 % Add flag for minority group for weights;
 minority = [grp_flag grp_flag > k];
@@ -50,3 +52,17 @@ output = ['LPA_output_Sim_', num2str(sim_num),'_k_',num2str(k),'_delta_', num2st
 save(output);
 
 end
+
+% Calculate sample estimates;
+% Mean
+% mean(X(:,grp_flag==1),2)
+% mean(X(:,grp_flag==2),2)
+
+% Sigma
+% cov(X(:,grp_flag==1)')
+% cov(X(:,grp_flag==2)')
+
+% Pi
+% sum(grp_flag==1)/(n - sum(grp_flag==3)) 
+% sum(grp_flag==2)/(n - sum(grp_flag==3)) 
+

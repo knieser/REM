@@ -1,7 +1,28 @@
 # Robust Expectation-Maximization (REM)
 
-## FA
+
+## MixtureModel
 This folder contains code for running simulations
+comparing EM and REM estimation of Gaussian mixture model parameters
+under model misspecification.
+
+Includes:
+- LPA_sim_main
+- LPA_data_sim
+- LPA_estimates
+- globalRobustEMAlgMixture
+- RobustEMAlgMixture
+- EMAlgMixture
+- checkEps
+- makeFigures
+- PrettyFig
+- printFig1
+- printFig2
+- printFig3
+
+
+## FactorAnalysis
+This folder contains MATLAB code for running simulations
 comparing EM and REM estimation of factor structures
 within heterogeneous populations.
 
@@ -18,23 +39,11 @@ Includes:
 - checkEpsFA
 - aggregate
 - PrettyFig
+- printFig4
+- printFig5
 
 
-## LPA
-This folder contains code for running simulations
-comparing EM and REM estimation of Gaussian mixture model parameters
-under model misspecification.
 
-Includes:
-- LPA_sim_main
-- LPA_data_sim
-- LPA_estimates
-- globalRobustEMAlgMixture
-- RobustEMAlgMixture
-- EMAlgMixture
-- checkEps
-- makeFigures
-- PrettyFig
 
 
 

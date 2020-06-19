@@ -1,20 +1,22 @@
-function [X, true_gmm, grp_flag] = LPA_data_sim(sim, p, k, n, mix)
- 
+function [X, true_gmm, grp_flag] = LPA_data_sim(sim, p, k, n, mix,seed)
+
+rng(seed);
+    
 if sim == 1
     msg = 'Simulation 1: No Corruption';
     disp(msg)
     
     mu = [2,7,6; 7,7,3];
-    sigma = reshape(1/8*[2, -1, 2, 1, 3, 0; -1, 2, 1, 2, 0, 3],p,p,[]);
-    skew = 0; 
+    sigma = reshape(1/8*[2, -1, 2, 1, 4, 0; -1, 2, 1, 2, 0, 4],p,p,[]);
+    skew = 0.5; 
     
 elseif sim == 2
     msg = 'Simulation 2: Scattered Minority';
     disp(msg)
 
     mu = [2.5,7,7; 7,2.5,7]; %[3, 7, 5; 7, 3, 5]; 
-    sigma = reshape(1/4*[2, -1, 2, 1, 20, 0; -1, 2, 1, 2, 0, 20],p,p,[]);
-    skew = 0;
+    sigma = reshape(1/2*[2, -1, 2, 1, 20, 0; -1, 2, 1, 2, 0, 20],p,p,[]);
+    skew = 0.5;
 
 elseif sim == 3
     msg = 'Simulation 3: Scattered Minority with Cross';
@@ -22,7 +24,7 @@ elseif sim == 3
     
     mu =  [5, 5, 5; 5,5,6]; %[2,7,6; 7,7,1.5];
     sigma = reshape(1/2*[2, -1.6, 2, 1.6, 10, 0; -1.6, 2, 1.6, 2, 0, 10],p,p,[]);
-    skew = 0; 
+    skew = 0.5; 
 
 end
 

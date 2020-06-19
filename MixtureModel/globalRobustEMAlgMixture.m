@@ -1,5 +1,7 @@
-function [est_mu, est_sigma, est_mix, est_omega, est_gamma, est_weights, final_llh, final_ind_llh] = globalRobustEMAlgMixture(X,k,iter,epsilon,robust)
-  
+function [est_mu, est_sigma, est_mix, est_omega, est_gamma, est_weights, final_llh, final_ind_llh] = globalRobustEMAlgMixture(X,k,iter,epsilon,robust,seed)
+
+rng(seed);
+
 % Get dimension
 p = size(X,1); 
 n = size(X,2);
@@ -12,7 +14,6 @@ n = size(X,2);
 GMModel = fitgmdist(X',k,'Options',statset('MaxIter',500));
 intl_sigma = GMModel.Sigma;
 intl_mix = GMModel.ComponentProportion;
-
 
 % Random starting points for mu - uniform over range of data;
 %mu_start = data_rng(1) + (data_rng(2) - data_rng(1))*rand(p,k,iter);

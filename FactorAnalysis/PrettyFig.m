@@ -2,6 +2,7 @@ function PrettyFig
 
 % Pretty Figure
 set(gcf,'Color',[1 1 1])
+set(gca,'TickLabelInterpreter', 'latex');
 set(gca,'YGrid','off')
 set(gca,'FontSize',14)
 set(gca,'FontName','Arial')
