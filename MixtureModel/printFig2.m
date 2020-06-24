@@ -5,7 +5,7 @@ clear; close all;
 set(0,'defaulttextinterpreter','latex')
 
 % Example 1;
-load('LPA_output_Sim_2_k_2_delta_1.mat','weights'); 
+load('GMM_output_Sim_2_k_2_delta_1.mat','weights'); 
  
 subplot(2,2,1)
 histogram(weights(weights(:,2) == 0,1),10, ...
@@ -26,7 +26,7 @@ legend off
 
 
 % Example 2;
-load('LPA_output_Sim_3_k_2_delta_1.mat','weights'); 
+load('GMM_output_Sim_3_k_2_delta_1.mat','weights'); 
 
 subplot(2,2,2)
 histogram(weights(weights(:,2) == 0,1),10, ...

@@ -1,4 +1,4 @@
-function [X, true_gmm, grp_flag] = LPA_data_sim(sim, p, k, n, mix,seed)
+function [X, true_gmm, grp_flag] = GMM_data_sim(sim, p, k, n, mix,seed)
 
 rng(seed);
     

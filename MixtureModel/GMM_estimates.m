@@ -1,4 +1,4 @@
-function [est_gmm,est_gmm_2,est_weights,est_gamma,opt_eps] = LPA_estimates(X,k,delta,global_iter,step,seed)
+function [est_gmm,est_gmm_2,est_weights,est_gamma,opt_eps] = GMM_estimates(X,k,delta,global_iter,step,seed)
     
 rng(seed);
 

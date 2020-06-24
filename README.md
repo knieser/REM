@@ -7,9 +7,9 @@ comparing EM and REM estimation of Gaussian mixture model parameters
 under model misspecification.
 
 Includes:
-- LPA_sim_main
-- LPA_data_sim
-- LPA_estimates
+- GMM_sim_main
+- GMM_data_sim
+- GMM_estimates
 - globalRobustEMAlgMixture
 - RobustEMAlgMixture
 - EMAlgMixture

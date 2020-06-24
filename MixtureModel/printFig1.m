@@ -5,7 +5,7 @@ clear; close all;
 set(0,'defaulttextinterpreter','latex')
 
 % Example 1;
-load('LPA_output_Sim_2_k_2_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2'); 
+load('GMM_output_Sim_2_k_2_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2'); 
  
 subplot(3,2,1)
 makeFigures(X,true_gmm);
@@ -25,7 +25,7 @@ ylabel({'$$\textbf{REM}$$';'';'';'Domain A'}); xlabel('Domain B');
 
 
 % Example 2
-load('LPA_output_Sim_3_k_2_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2'); 
+load('GMM_output_Sim_3_k_2_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2'); 
  
 subplot(3,2,2)
 makeFigures(X,true_gmm);

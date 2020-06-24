@@ -6,17 +6,12 @@ rng(seed);
 p = size(X,1); 
 n = size(X,2);
   
-% Get data range
-%data_rng = [min(X,[],2) max(X,[],2)]; % get range for each dimension
-%data_rng = [min(data_rng(:,1)) max(data_rng(:,2))]; % take smallest min and largest max so all data are covered;
- 
 % Use matlab function to get starting estimates for sigma and mix;
 GMModel = fitgmdist(X',k,'Options',statset('MaxIter',500));
 intl_sigma = GMModel.Sigma;
 intl_mix = GMModel.ComponentProportion;
 
 % Random starting points for mu - uniform over range of data;
-%mu_start = data_rng(1) + (data_rng(2) - data_rng(1))*rand(p,k,iter);
 X_trim = X(:,1:k*floor(n/k));
 mu_start = datasample(reshape(X_trim,p,k,[]),iter,3,'Replace',false);
 

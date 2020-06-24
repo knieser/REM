@@ -1,4 +1,4 @@
-function [true_gmm,est_gmm,est_gmm_2,weights,est_gamma,opt_eps] = LPA_sim_main(sim_num,k,delta)
+function [true_gmm,est_gmm,est_gmm_2,weights,est_gamma,opt_eps] = GMM_sim_main(sim_num,k,delta)
 % Sim Key
 % 1 = No corruption
 % 2 = Scattered minority
@@ -25,7 +25,7 @@ mix = [0.70 0.20 0.10];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Make data
-[X, true_gmm, grp_flag] = LPA_data_sim(sim_num,p_0,k_0,n,mix,seed);
+[X, true_gmm, grp_flag] = GMM_data_sim(sim_num,p_0,k_0,n,mix,seed);
 
 % Compute AIC and BIC
 AIC = 1:k_0+1;
@@ -38,7 +38,7 @@ for j = 1:5
 end
 
 % Get estimates
-[est_gmm, est_gmm_2, est_weights, est_gamma, opt_eps] = LPA_estimates(X,k,delta,global_iter,step,seed);
+[est_gmm, est_gmm_2, est_weights, est_gamma, opt_eps] = GMM_estimates(X,k,delta,global_iter,step,seed);
 
 % Add flag for minority group for weights;
 minority = [grp_flag grp_flag > k];
@@ -48,7 +48,7 @@ weights = [est_weights minority(:,2)];
 true_gmm = gmdistribution(true_gmm.mu(1:k,:), true_gmm.Sigma(:,:,1:k), true_gmm.ComponentProportion(1:k));
 
 % Save
-output = ['LPA_output_Sim_', num2str(sim_num),'_k_',num2str(k),'_delta_', num2str(100*delta)];
+output = ['GMM_output_Sim_', num2str(sim_num),'_k_',num2str(k),'_delta_', num2str(100*delta)];
 save(output);
 
 end
