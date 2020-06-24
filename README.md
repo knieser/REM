@@ -1,5 +1,9 @@
 # Robust Expectation-Maximization (REM)
 
+Individuals differ in many substantive ways that are not always captured through the assumed data-generating model. In an effort to address this, we present a robust estimation procedure based on the EM algorithm which we call REM (robust expectation-maximization).
+
+The files in this repository contain the MATLAB source code used for simulation studies found in the paper, Addressing Heterogeneous Populations in Latent Variable Settings through Robust Estimation. Further details about REM and the simulation studies can be found there. 
+
 
 ## MixtureModel
 This folder contains code for running simulations
