@@ -8,43 +8,20 @@ The files in this repository contain the MATLAB source code used for simulation 
 ## MixtureModel
 This folder contains code for running simulations
 comparing EM and REM estimation of Gaussian mixture model parameters
-under model misspecification.
+under model misspecification. Simulations can be run from MixtureModel/GMM_sim_main.m 
 
-Includes:
-- GMM_sim_main
-- GMM_data_sim
-- GMM_estimates
-- globalRobustEMAlgMixture
-- RobustEMAlgMixture
-- EMAlgMixture
-- checkEps
-- makeFigures
-- PrettyFig
-- printFig1
-- printFig2
-- printFig3
+Estimation can be run for an input  p-by-n dataset X from MixtureModel/GMM_estimates.m
+
+
 
 
 ## FactorAnalysis
 This folder contains code for running simulations
 comparing EM and REM estimation of factor structures
-within heterogeneous populations.
+within heterogeneous populations. Simulations can be run from FactorAnalysis/FA_sim_main.m
 
-Includes:
-- FA_sim_main
-- FA_data_sim
-- SigmaSim
-- SigmaSimNormals
-- computeCongruence
-- FA_sample_data
-- FA_estimates
-- EMAlg
-- RobustEMAlg
-- checkEpsFA
-- aggregate
-- PrettyFig
-- printFig4
-- printFig5
+Estimation can be run for an input  p-by-n dataset X from FactorAnalysis/FA_estimates.m
+
 
 
 
