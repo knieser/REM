@@ -49,6 +49,6 @@ legend off
 set(gcf,'Position',[50 50 900 800])
 
 print('Fig2','-depsc','-r600','-painters')
-%print('Fig2','-dpng','-r600','-painters')
+
 
 end

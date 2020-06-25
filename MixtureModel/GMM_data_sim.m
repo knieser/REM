@@ -1,7 +1,24 @@
-function [X, true_gmm, grp_flag] = GMM_data_sim(sim, p, k, n, mix,seed)
-
-rng(seed);
+function [X, true_gmm, grp_flag] = GMM_data_sim(sim, p, k, n, mix)
+%{
+This is the function generates the data.
     
+INPUT:
+    sim_num: 
+        1 = No corruption,
+        2 = Scattered minority,
+        3 = Scattered minority w cross
+    p: number of observed variables
+    k: number of latent groups
+    n: number of observations
+    mix: 1xk vector of mixture probabilities 
+    
+OUTPUT:
+    X: pxn array of simulated data
+    true_gmm: Ground truth distribution
+    grp_flag: nx1 vector of group indicators
+%}
+
+% Set parameter values based on simulation number
 if sim == 1
     msg = 'Simulation 1: No Corruption';
     disp(msg)
@@ -22,13 +39,15 @@ elseif sim == 3
     msg = 'Simulation 3: Scattered Minority with Cross';
     disp(msg)
     
-    mu =  [5, 5, 5; 5,5,6]; %[2,7,6; 7,7,1.5];
+    mu =  [5, 5, 5; 5,5,6]; 
     sigma = reshape(1/2*[2, -1.6, 2, 1.6, 10, 0; -1.6, 2, 1.6, 2, 0, 10],p,p,[]);
     skew = 0.5; 
 
 end
 
+% Make ground truth distribution
 true_gmm = gmdistribution(mu',sigma,mix);
+
 
 %%%%%%%% Simulate Data %%%%%%%%%%
 
@@ -36,7 +55,7 @@ true_gmm = gmdistribution(mu',sigma,mix);
 R = cell(k,1);
 X = zeros(p,n);
 
-% Calculate Cholesky for each cluster covariance matrix
+% Calculate Cholesky for each group's covariance matrix
 for j = 1:k
     R{j} = chol(sigma(:,:,j));
 end

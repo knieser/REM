@@ -1,7 +1,20 @@
-function chk = checkEps(mu,sigma,mix,gamma,eps,seed)
-  
-rng(seed);
+function chk = checkEps(mu,sigma,mix,gamma,eps)
+%{
+This function checks whether the selected epsilon value leads to REM estimates 
+that meet the heuristic for hyperparameter selection.
+    
+INPUT:
+    mu: (p x k) estimated mean vectors
+    sigma: (p x p x k) estimated covariance matrices
+    mix: (1 x p) estimated mixture proportions
+    gamma: estimated gamma from REM estimation
+    eps: hyperparameter for REM estimation 
 
+OUTPUT:
+    chk: probability that gamma.*f <= (1-gamma)*eps 
+         or equivalently weights <= 1/2
+%}  
+     
 % Generate data;
 n = 10000;
 p = size(mu,1);

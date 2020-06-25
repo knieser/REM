@@ -46,6 +46,5 @@ ylabel([]); xlabel('Domain A');
 set(gcf,'Position',[50 50 800 1000])
 
 print('Fig1','-depsc','-r600','-painters')
-%print('Fig1','-dpng','-r600','-painters')
 
 end
