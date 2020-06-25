@@ -28,12 +28,14 @@ load('FA_output_Sim_1_comm_1_delta_5.mat','corrupt_pct','R_EM','R_REM','gamma_va
  
 subplot(3,2,5)
 makeCongruenceFig(corrupt_pct,R_EM,R_REM)
-ylabel({'$$\textbf{Low}$$';'';'';'Congruence'}); xlabel('Majority %');
+ylabel({'$$\textbf{Low}$$';'';'';'Congruence'}); 
+xlabel('Majority \%');
 
      
 subplot(3,2,6)
 makeGammaFig(corrupt_pct,gamma_values) 
-ylabel('Est. Gamma'); xlabel('Majority %');
+ylabel('Est. Gamma'); 
+xlabel('Majority \%');
 
 
 set(gcf,'Position',[50 50 800 1000])
