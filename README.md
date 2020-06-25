@@ -26,7 +26,7 @@ Includes:
 
 
 ## FactorAnalysis
-This folder contains MATLAB code for running simulations
+This folder contains code for running simulations
 comparing EM and REM estimation of factor structures
 within heterogeneous populations.
 
