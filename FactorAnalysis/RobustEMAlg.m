@@ -1,6 +1,23 @@
 function [hlambda, hpsi, gamma, weights, alt_llh] = RobustEMAlg(X,k,epsilon,intl_lambda,intl_psi)
-
-% Get dimensions;
+%{
+This function obtains REM estimates.
+    
+INPUT:
+    X: (p x n) dataset
+    k: number of latent factors
+    epsilon: hyperparameter
+    intl_lambda: (p x k) intial value for lambda
+    intl_psi: (p x 1) initial value for psi
+    
+OUTPUT:
+    hlambda: (p x k) estimated lambda
+    psi: (p x 1) estimated psi
+    gamma: REM estimated gamma
+    weights: individual-level probabilistic weights
+    alt_llh: (n x 1) individual-level modified loglikelihood values 
+%} 
+    
+% Get data dimensions;
 p = size(X,1);
 n = size(X,2);
 
@@ -9,7 +26,7 @@ hlambda = intl_lambda;
 hpsi = intl_psi;
 gamma = 0.5;
 
-% Tolerance parameters for EM alg
+% Tolerance parameters
 tol = 1e-15;
 maxiter = 500;
 llh = -inf(1,maxiter);
@@ -35,7 +52,7 @@ for iter = 2:maxiter
     
     if abs(llh(iter) - llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
-    % Create weights p(y);
+    % Create weights
     scaledllh = log(gamma)+ind_llh; % Add in gamma
 
     weights   = log(1-gamma) + log(epsilon) - scaledllh;

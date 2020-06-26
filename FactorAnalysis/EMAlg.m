@@ -1,8 +1,22 @@
 function [hlambda, hpsi, ind_llh] = EMAlg(X,k)
-
+%{
+This function obtains EM estimates.
+    
+INPUT:
+    X: (p x n) dataset
+    k: number of latent factors
+    
+OUTPUT:
+    hlambda: (p x k) estimated lambda
+    psi: (p x 1) estimated psi
+    ind_llh: (n x 1) individual-level loglikelihood values
+%} 
+    
+% Get data dimensions    
 p = size(X,1);
 n = size(X,2);
 
+% Sample covariance matrix
 Cxx = (1/n)*(X*X'); 
 
 % Initial guess of lambda and psi;

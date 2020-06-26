@@ -10,12 +10,12 @@ INPUT:
     p: number of observed variables
     k: number of latent groups
     n: number of observations
-    mix: 1xk vector of mixture probabilities 
+    mix: (1 x k) vector of mixture probabilities 
     
 OUTPUT:
-    X: pxn array of simulated data
-    true_gmm: Ground truth distribution
-    grp_flag: nx1 vector of group indicators
+    X: (p x n) array of simulated data
+    true_gmm: ground truth distribution
+    grp_flag: (n x 1) vector of group indicators
 %}
 
 % Set parameter values based on simulation number

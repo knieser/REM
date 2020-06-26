@@ -1,10 +1,23 @@
 function chk = checkEpsFA(lambda,psi,gamma,eps)
+%{
+This function checks whether the selected epsilon value leads to REM estimates 
+that meet the heuristic for hyperparameter selection.
+    
+INPUT:
+    lambda: (p x k) estimated lambda
+    psi: (p x 1) estimated psi
+    gamma: estimated gamma from REM estimation
+    eps: hyperparameter for REM estimation 
 
-n = 10000;
+OUTPUT:
+    chk: probability that gamma.*f <= (1-gamma)*eps 
+         or equivalently weights <= 1/2
+%}
 
-p = size(lambda,1);
 
 % Generate some data;
+n = 10000;
+p = size(lambda,1);
 sigma = lambda*lambda' + diag(psi);
 V = chol(sigma);
 X = randn(n,p)*V;

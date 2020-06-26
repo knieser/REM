@@ -43,8 +43,6 @@ elseif communality == 2
     B1 = diag(1/10*randi([2,8],p,1));
 elseif communality == 3
     B1 = diag(1/10*randi([6,8],p,1));
-elseif communality == 4
-    B1 = diag(1/10*randi([9,10],p,1));
 else 
     B1 = zeros(p,p);
 end

@@ -12,7 +12,7 @@ INPUT:
     delta: hyperparameter for REM estimation 
     
 OUTPUT:
-    true_gmm: Ground truth distribution
+    true_gmm: ground truth distribution
     est_gmm: EM estimated distribution
     est_gmm_2: REM estimated distribution
     weights: individual-level probabilistic weights from REM estimation

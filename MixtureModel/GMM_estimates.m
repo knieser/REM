@@ -3,7 +3,7 @@ function [est_gmm,est_gmm_2,est_weights,est_gamma,opt_eps] = GMM_estimates(X,k,d
 This is the main function for obtaining EM and REM estimates.
     
 INPUT:
-    X: pxn dataset
+    X: (p x n) dataset
     k: number of latent groups
     delta: hyperparameter for REM estimation 
     global_iter: number of starting points for global optimization
