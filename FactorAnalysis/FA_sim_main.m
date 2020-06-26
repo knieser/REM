@@ -47,7 +47,7 @@ elseif sim_num == 2
 end
 
 % Simulate population covariance/factor structures 
-[sigma_01, sigma_02, lambda_01, lambda_02, ~] = FA_data_sim(p_0,k_0,sparse,communality,m,seed);
+[sigma_01, sigma_02, lambda_01, lambda_02, ~] = FA_data_sim(p_0,k_0,sparse,communality,m);
 
 % Run simulation 
 if sim_num == 1

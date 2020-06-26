@@ -24,7 +24,7 @@ maxiter = step+1;
 disp('Starting EM global opt...')
 
 [mu_1, sigma_1, mix_1, ~, ~, ~, ~, ind_llh] ...
-    = globalRobustEMAlgMixture(X,k,global_iter,0,0,seed); 
+    = globalRobustEMAlgMixture(X,k,global_iter,0,0); 
 
 disp('...done')
 
@@ -44,7 +44,7 @@ intl_mix = GMModel.ComponentProportion;
 eps_start = quantile(exp(ind_llh),0.05);
 disp('Searching for REM global opt...')
 
-[intl_mu] = globalRobustEMAlgMixture(X,k,global_iter,eps_start,1,seed);
+[intl_mu] = globalRobustEMAlgMixture(X,k,global_iter,eps_start,1);
 
 disp('...done')
 
@@ -55,7 +55,7 @@ for iter = 1:maxiter
         = RobustEMAlgMixture(X,k,eps_range(iter),intl_mu,intl_sigma,intl_mix);
     
     % Check heuristic for hyperparameter selection;
-    chk(iter) = checkEps(mu_2,sigma_2,mix_2,est_gamma(iter),eps_range(iter),seed);
+    chk(iter) = checkEps(mu_2,sigma_2,mix_2,est_gamma(iter),eps_range(iter));
             
     if chk(iter) > delta 
         break;
