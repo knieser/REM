@@ -1,4 +1,4 @@
-function [est_mu, est_sigma, est_mix, est_omega, est_gamma, est_weights, final_llh, final_ind_llh] ...
+function [est_mu, est_sigma, est_mix, est_omega, est_gamma, est_weights,final_llh,final_ind_llh] ...
     = globalRobustEMAlgMixture(X,k,iter,epsilon,robust)
 %{
 This function runs global optimization for EM and REM estimation.
@@ -16,11 +16,11 @@ OUTPUT:
     est_mix: (1 x p) estimated mixture proportions
     est_omega: (n x 1) estimated posterior probabilities
     est_gamma: estimated gamma from REM estimation
-    est_weights: individual-level probabilistic weights from REM estimation
-    final_llh: joint loglikelihood
-    final_ind_llh: (n x 1) individual-level loglikelihood values
+    est_weights: individual probabilistic weights from REM estimation
+    final_llh: joint log-likelihood
+    final_ind_llh: (n x 1) individual log-likelihood values
 %}  
-    
+
 % Get data dimensions
 p = size(X,1); 
 n = size(X,2);
@@ -32,20 +32,21 @@ intl_mix = GMModel.ComponentProportion;
 
 % Random starting points for mu
 X_trim = X(:,1:k*floor(n/k));
-mu_start = datasample(reshape(X_trim,p,k,[]),iter,3,'Replace',false);
+maxiter = min(iter, floor(n/k));
+mu_start = datasample(reshape(X_trim,p,k,[]),maxiter,3,'Replace',false);
 
 % Initialize likelihood values
 max_alt_llh = -Inf;
 max_llh = -Inf;
     
 if robust == 1   
-    for l = 1:iter 
+    for l = 1:maxiter 
     
         intl_mu = mu_start(:,:,l);
     
-        [mu, sigma, mix, omega, gamma, weights, alt_llh, alt_ind_llh] ...
+        [mu, sigma, mix, omega, gamma, weights, alt_llh, ind_llh] ...
             = RobustEMAlgMixture(X,k,epsilon,intl_mu,intl_sigma,intl_mix);
-                
+   
         if alt_llh > max_alt_llh 
             max_alt_llh = alt_llh;
             est_mu = mu;
@@ -54,13 +55,13 @@ if robust == 1
             est_omega = omega;
             est_gamma = gamma;
             est_weights = weights;
-            est_ind_llh = alt_ind_llh;
+            est_ind_llh = ind_llh;
         end
     end 
     final_llh = max_alt_llh;
     final_ind_llh = est_ind_llh;
 else
-    for l = 1:iter 
+    for l = 1:maxiter 
 
         intl_mu = mu_start(:,:,l);
 

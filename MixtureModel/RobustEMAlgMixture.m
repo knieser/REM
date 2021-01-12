@@ -18,10 +18,10 @@ OUTPUT:
     omega: (n x 1) estimated posterior probabilities
     gamma: estimated gamma from REM estimation
     weights: individual-level probabilistic weights from REM estimation
-    alt_llh: joint modified loglikelihood
-    ind_llh: (n x 1) individual-level modified loglikelihood values
+    alt_llh: joint alternative log-likelihood
+    ind_llh: (n x 1) individual log-likelihood values
 %}  
-    
+
 % Get dimensions
 p = size(X,1);
 n = size(X,2);

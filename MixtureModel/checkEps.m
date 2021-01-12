@@ -11,10 +11,9 @@ INPUT:
     eps: hyperparameter for REM estimation 
 
 OUTPUT:
-    chk: probability that gamma.*f <= (1-gamma)*eps 
-         or equivalently weights <= 1/2
+    chk: 1 - mean(weights)
 %}  
-     
+
 % Generate data;
 n = 10000;
 p = size(mu,1);
@@ -33,6 +32,6 @@ f = sum(mix.*exp(log_g),2);
 weights = gamma*f ./ (gamma.*f + (1-gamma)*eps);
 
 % Calculate chk;
-chk = mean(weights < 1/2);
+chk = 1-mean(weights);
     
 end

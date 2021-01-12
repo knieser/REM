@@ -1,4 +1,4 @@
-function [X, true_gmm, grp_flag] = GMM_data_sim(sim, p, k, n, mix)
+function [X, true_gmm, grp_flag] = GMM_data_sim(sim,p,k,n,mix)
 %{
 This is the function generates the data.
     
@@ -31,7 +31,7 @@ elseif sim == 2
     msg = 'Simulation 2: Scattered Minority';
     disp(msg)
 
-    mu = [2.5,7,7; 7,2.5,7]; %[3, 7, 5; 7, 3, 5]; 
+    mu = [2.5,7,7; 7,2.5,7]; 
     sigma = reshape(1/2*[2, -1, 2, 1, 20, 0; -1, 2, 1, 2, 0, 20],p,p,[]);
     skew = 0.5;
 
@@ -39,15 +39,37 @@ elseif sim == 3
     msg = 'Simulation 3: Scattered Minority with Cross';
     disp(msg)
     
-    mu =  [5, 5, 5; 5,5,6]; 
+    mu =  [5,5,5; 5,5,6]; 
     sigma = reshape(1/2*[2, -1.6, 2, 1.6, 10, 0; -1.6, 2, 1.6, 2, 0, 10],p,p,[]);
     skew = 0.5; 
+    
+elseif sim == 4
+    msg = 'Simulation 4: Scattered Minority, Large Within-Group Variance';
+    disp(msg)
+    
+    mu = [3,6,7; 7,3,7];
+    sigma = reshape(1/2*[2, 1, 6, 1, 20, 0; 1, 2, 1, 10, 0, 20],p,p,[]);
+    skew = 0.5;
 
+elseif sim == 5
+    msg = 'Simulation 5: Scattered Minority, Large Within-Group Variance';
+    disp(msg)
+    
+    mu = [3,6,7; 7,3,7];
+    sigma = reshape(1/2*[2, 1, 6, 1, 20, 0; 1, 2, 1, 6, 0, 20],p,p,[]);
+    skew = 0.5;
+    
+elseif sim == 6
+    msg = 'Simulation 6: Noise within a Group';
+    disp(msg)
+    
+    mu = [3,7,5; 7,3,2];
+    sigma = reshape(1/2*[4, 1, 4, 1, 0.2, 0; 1, 4, 1, 4, 0, 0.2],p,p,[]);
+    skew = 0.5;
 end
 
 % Make ground truth distribution
 true_gmm = gmdistribution(mu',sigma,mix);
-
 
 %%%%%%%% Simulate Data %%%%%%%%%%
 
@@ -77,12 +99,19 @@ for i = 1:n
     else
         if sim == 1
             X(:,i) = mu(:,3) + R{3}'*pearsrnd(0,1,skew,3,p,1);
-        else
+        elseif sim == 2
             X(:,i) = 10*betarnd(1/2,1/3,p,1);
+        elseif sim == 3
+            X(:,i) = 10*betarnd(1/2,1/3,p,1);
+        elseif sim == 4
+            X(:,i) = 10*betarnd(1/2,1/3,p,1);
+        elseif sim == 5
+            X(:,i) = 10*betarnd(1/2,1/3,p,1);
+        elseif sim == 6
+            X(:,i) = mu(:,3) + R{3}'*pearsrnd(0,1,skew,3,p,1);
         end        
         grp_flag(i) = 3;
     end
 end
-
 
 end

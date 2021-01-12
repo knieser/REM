@@ -1,11 +1,9 @@
-function printFig3()
-
-clear; close all;
+function printFig3(delta)
 
 set(0,'defaulttextinterpreter','latex')
 
 % K = 1
-load('GMM_output_Sim_1_k_1_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2'); 
+load(['GMM_output_Sim_1_k_1_delta_',num2str(100*delta),'.mat'],'X','true_gmm','est_gmm','est_gmm_2'); 
  
 subplot(3,3,1)
 makeFigures(X,true_gmm);
@@ -25,7 +23,7 @@ ylabel({'$$\textbf{REM} $$';'';'';'Domain B'}); xlabel('Domain A');
 
 
 % K = 2
-load('GMM_output_Sim_1_k_2_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2');  
+load(['GMM_output_Sim_1_k_2_delta_', num2str(100*delta),'.mat'],'X','true_gmm','est_gmm','est_gmm_2');  
  
 subplot(3,3,2)
 makeFigures(X,true_gmm);
@@ -45,7 +43,7 @@ ylabel([]); xlabel('Domain A');
 
 
 % K = 3
-load('GMM_output_Sim_1_k_3_delta_1.mat','X','true_gmm','est_gmm','est_gmm_2');
+load(['GMM_output_Sim_1_k_3_delta_',num2str(100*delta),'.mat'],'X','true_gmm','est_gmm','est_gmm_2');
  
 subplot(3,3,3)
 makeFigures(X,true_gmm);

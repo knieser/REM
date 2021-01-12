@@ -14,10 +14,10 @@ OUTPUT:
     sigma: (p x p x k) estimated covariance matrices
     mix: (1 x p) estimated mixture proportions
     omega: (n x 1) estimated posterior probabilities
-    llh: joint loglikelihood
-    ind_llh: (n x 1) individual-level loglikelihood values
+    llh: joint log-likelihood
+    ind_llh: (n x 1) individual log-likelihood values
 %}  
-        
+
 % Get dimensions
 p = size(X,1);
 n = size(X,2);
