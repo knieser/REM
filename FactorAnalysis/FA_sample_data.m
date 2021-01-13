@@ -1,5 +1,5 @@
 function [X,lambda_target_1,lambda_target_2, grp_flag] = ...
-    FA_sample_data(sigma_01, sigma_02, lambda_01, lambda_02,n,corrupt_pct)
+    FA_sample_data(sigma_01, sigma_02, lambda_01, lambda_02,n,corrupt_pct,seed)
 %{
 This is the function samples data from population.
     
@@ -17,7 +17,10 @@ OUTPUT:
     lambda_target_2: normalized population loading matrix for minority
     grp_flag: nx1 vector of group indicators
 %}
-    
+
+% Set seed;
+rng(seed+1);
+
 p = size(sigma_01,1);
 
 corrupt_number = ceil(n*(corrupt_pct));

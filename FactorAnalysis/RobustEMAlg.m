@@ -1,4 +1,4 @@
-function [hlambda, hpsi, gamma, weights, alt_llh] = RobustEMAlg(X,k,epsilon,intl_lambda,intl_psi)
+function [hlambda, hpsi, gamma, weights, alt_llh, llh] = RobustEMAlg(X,k,epsilon,intl_lambda,intl_psi)
 %{
 This function obtains REM estimates.
     
@@ -16,7 +16,7 @@ OUTPUT:
     weights: individual-level probabilistic weights
     alt_llh: (n x 1) individual-level modified loglikelihood values 
 %} 
-    
+
 % Get data dimensions;
 p = size(X,1);
 n = size(X,2);
@@ -69,7 +69,8 @@ for iter = 2:maxiter
 
 end
 
+% Store alternate and traditional log-likelihood value
 alt_llh = sum(alt_ind_llh);
-
+llh     = sum(ind_llh);
 
 end

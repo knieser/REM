@@ -1,4 +1,4 @@
-function [sigma_01, sigma_02, lambda_01, lambda_02, R_lambdas] = FA_data_sim(p,k,sparse,communality,m)
+function [sigma_01, sigma_02, lambda_01, lambda_02, R_lambdas] = FA_data_sim(p,k,sparse,communality,m,seed)
 %{
 This is the function generates the data.
     
@@ -18,6 +18,9 @@ OUTPUT:
     R_lambdas: congruence between lambda_01 and lambda_02
 %}
 
+% Set seed;
+rng(seed);
+
 % Generate two different sets of lambdas
 % Either sparse structure or complex structure
 if sparse == 1
@@ -33,5 +36,5 @@ sigma_02 = m*sigma_01 + (1-m)*sigma_02;
 
 % Compute congruence coeff between lambda_01 and lambda_02
 R_lambdas = computeCongruence(lambda_01, lambda_02);
-    
+disp(R_lambdas)    
 end

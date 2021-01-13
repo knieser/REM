@@ -1,10 +1,10 @@
-function printFig5()
+function printFig5(delta)
 
-clear; close all;
+close all;
 
 set(0,'defaulttextinterpreter','latex')
 
-load('FA_output_Sim_2_corrupt_30pct_delta_5.mat','k_0','k_choice','R_EM','R_REM'); 
+load(['FA_output_Sim_2_corrupt_30pct_delta_',num2str(100*delta),'.mat'],'k_0','k_choice','R_EM','R_REM'); 
 
 hold on
 errorbar(k_choice, R_EM(:,1), R_EM(:,2),'LineWidth',1.5,'Color','b','LineStyle','--','Marker','d','MarkerSize',5)

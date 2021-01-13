@@ -1,10 +1,10 @@
-function printFig4()
+function printFig4(delta)
 
-clear; close all;
+close all;
 
 set(0,'defaulttextinterpreter','latex')
 
-load('FA_output_Sim_1_comm_3_delta_5.mat','corrupt_pct','R_EM','R_REM','gamma_values'); 
+load(['FA_output_Sim_1_comm_3_delta_', num2str(100*delta),'.mat'],'corrupt_pct','R_EM','R_REM','gamma_values'); 
  
 subplot(3,2,1)
 makeCongruenceFig(corrupt_pct,R_EM,R_REM)
@@ -14,7 +14,7 @@ subplot(3,2,2)
 makeGammaFig(corrupt_pct,gamma_values) 
 ylabel('Est. Gamma');
 
-load('FA_output_Sim_1_comm_2_delta_5.mat','corrupt_pct','R_EM','R_REM','gamma_values'); 
+load(['FA_output_Sim_1_comm_2_delta_', num2str(100*delta),'.mat'],'corrupt_pct','R_EM','R_REM','gamma_values'); 
  
 subplot(3,2,3)
 makeCongruenceFig(corrupt_pct,R_EM,R_REM)
@@ -24,18 +24,18 @@ subplot(3,2,4)
 makeGammaFig(corrupt_pct,gamma_values) 
 ylabel('Est. Gamma');
 
-load('FA_output_Sim_1_comm_1_delta_5.mat','corrupt_pct','R_EM','R_REM','gamma_values'); 
+load(['FA_output_Sim_1_comm_1_delta_', num2str(100*delta),'.mat'],'corrupt_pct','R_EM','R_REM','gamma_values'); 
  
 subplot(3,2,5)
 makeCongruenceFig(corrupt_pct,R_EM,R_REM)
 ylabel({'$$\textbf{Low}$$';'';'';'Congruence'}); 
-xlabel('Majority \%');
+xlabel('Majority, proportion');
 
      
 subplot(3,2,6)
 makeGammaFig(corrupt_pct,gamma_values) 
 ylabel('Est. Gamma'); 
-xlabel('Majority \%');
+xlabel('Majority, proportion');
 
 
 set(gcf,'Position',[50 50 800 1000])

@@ -11,7 +11,8 @@ OUTPUT:
     psi: (p x 1) estimated psi
     ind_llh: (n x 1) individual-level loglikelihood values
 %} 
-    
+
+   
 % Get data dimensions    
 p = size(X,1);
 n = size(X,2);
