@@ -29,7 +29,8 @@ EMAlg <- function(X, k, intl_mix, intl_mu, intl_sigma, min_var = 0.05){
       Z = sweep(X, 2, mu[,j], "-") %*% inv_V
       cond_lik[,j] = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) t(y) %*% y))
     }
-    ind_lik = log(apply(mix * exp(cond_lik), 1, sum))
+    omega_num = sweep(exp(cond_lik), 2, mix, "*")
+    ind_lik = log(apply(omega_num, 1, sum))
     
     # calculate value for objective function
     obj[iter] = sum(ind_lik)
@@ -38,7 +39,7 @@ EMAlg <- function(X, k, intl_mix, intl_mu, intl_sigma, min_var = 0.05){
     if(abs(obj[iter] - obj[iter-1]) < tol*abs(obj[iter-1])){break}
     
     # estimate omega
-    omega = mix * exp(cond_lik) / exp(ind_lik)
+    omega = omega_num / exp(ind_lik)
     
     # estimate mu, sigma, and mix
     for (j in 1:k){

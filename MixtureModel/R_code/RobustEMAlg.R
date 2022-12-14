@@ -39,9 +39,9 @@ RobustEMAlg <- function(X, k, epsilon, intl_mix, intl_mu, intl_sigma, min_var = 
     }
     
     if (exit == 1){break}
-    
-    ind_lik = log(apply(mix * exp(cond_lik), 1, sum))
-    
+    omega_num = sweep(exp(cond_lik), 2, mix, "*")
+    ind_lik = log(apply(omega_num, 1, sum))
+
     # calculate modified log-likelihoods
     ind_lik_rem = log(gamma * exp(ind_lik) + (1-gamma) * epsilon)
     
@@ -61,7 +61,7 @@ RobustEMAlg <- function(X, k, epsilon, intl_mix, intl_mu, intl_sigma, min_var = 
     gamma = mean(weights)
     
     # estimate omega
-    omega = mix * exp(cond_lik) / exp(ind_lik)
+    omega = omega_num / exp(ind_lik)
     
     # estimate mu, sigma, and mix
     for (j in 1:k){

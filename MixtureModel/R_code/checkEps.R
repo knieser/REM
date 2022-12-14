@@ -32,7 +32,8 @@ checkEps <- function(mix, mu, sigma, epsilon, gamma){
     Z = sweep(X, 2, mu[,j], "-") %*% inv_V
     cond_lik[,j] = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) t(y) %*% y))
   }
-  ind_lik = log(apply(mix * exp(cond_lik), 1, sum))
+  omega_num = sweep(exp(cond_lik), 2, mix, "*")
+  ind_lik = log(apply(omega_num, 1, sum))
   
   # calculate modified log-likelihoods
   ind_lik_rem = log(gamma * exp(ind_lik) + (1-gamma) * epsilon)

@@ -21,7 +21,7 @@ REM_estimates <- function(X, k, delta, nstart){
   
   # EM estimates
   message('...getting EM estimates')
-  for (s in 1:nstart){
+  for (s in 1:nstart+1){
     local_EM_output <- EMAlg(X, k, intl_mix, intl_mu[,,s], intl_sigma)
     lik = sum(local_EM_output$ind_lik)
     
@@ -37,7 +37,7 @@ REM_estimates <- function(X, k, delta, nstart){
   message('...starting REM global optimization')
   ind_lik = EM_output$ind_lik
   eps_start = quantile(exp(ind_lik), 0.05)
-  for (s in 1:nstart){
+  for (s in 1:nstart+1){
     local_REM_output <- RobustEMAlg(X, k, eps_start, intl_mix, intl_mu[,,s], intl_sigma)
     lik_rem = sum(local_REM_output$ind_lik_rem)
     
