@@ -16,6 +16,7 @@ REM_main <- function(X, k_range = 2:6, delta = 0.05, nstart = 50){
   for (k in 1:length(k_range)){
     message('..working on k = ', k_range[k])
     REM_output[[k]] = REM_estimates(X, k_range[k], delta, nstart)
+    message('..done with k = ', k_range[k])
   }
   return(REM_output)
 }
