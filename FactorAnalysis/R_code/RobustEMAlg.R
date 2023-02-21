@@ -7,14 +7,14 @@ RobustEMAlg <- function(X, k, epsilon, intl_nu, intl_lambda, intl_psi){
   # initial guess of lambda and psi
   nu = intl_nu
   lambda = intl_lambda
-  psi <- intl_psi
+  psi = intl_psi
   gamma = 0.5
   
   # tolerance parameters
   tol = 1e-6
   maxiter = 1e3
   
-  # EM algorithm
+  # REM algorithm
   obj = rep(-Inf, maxiter)
   for (iter in 2:maxiter){
     
@@ -46,7 +46,7 @@ RobustEMAlg <- function(X, k, epsilon, intl_nu, intl_lambda, intl_psi){
     
     # estimate gamma
     gamma = mean(weights)
-    
+
     # estimate nu
     nu = apply(weights*X, 2, sum) / (n*gamma)
     

@@ -48,7 +48,6 @@ EMAlg <- function(X, k){
    
     if(iter==maxiter){message(
       paste('maxiter reached; increase maxiter', abs(obj[iter] - obj[iter-1])/abs(obj[iter-1])))}
-    
   }
   
   # rescale estimates

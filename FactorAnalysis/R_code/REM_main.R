@@ -1,28 +1,21 @@
-REM_main <- function(X, k, delta){
+REM_main <- function(X, k_range, delta = 0.05){
   
-  # EM estimates
-  message('...getting EM estimates')
-  EM_output <- EMAlg(X, k)
-  nu1 = EM_output$nu
-  lambda1 = EM_output$lambda
-  psi1 = EM_output$psi
-  ind_lik = EM_output$ind_lik
+  source('REM_estimates.R')
+  source('EMAlg.R')
+  source('epsilon_search.R')
+  source('checkEpsFA.R')
+  source('RobustEMAlg.R')
   
-  # set max epsilon
-  ueps = quantile(exp(ind_lik), 0.3)
+  # data dimensions
+  n = nrow(X)
+  p = ncol(X)
   
-  # epsilon search
-  message('...searching for optimal epsilon')
-  opt_eps = epsilon_search(X, delta, ueps, nu1, lambda1, psi1)
+  REM_output = vector(mode = 'list', length = length(k_range))
   
-  # REM algorithm
-  message('...getting REM estimates')
-  REM_output = RobustEMAlg(X, k, opt_eps, nu1, lambda1, psi1)
-  
-  output = list(
-    EM_output = EM_output,
-    REM_output = REM_output,
-    epsilon = opt_eps)
-  return(output)
-  
+  for (k in 1:length(k_range)){
+    message('..working on k = ', k_range[k])
+    REM_output[[k]] = REM_estimates(X, k_range[k], delta)
+    message('..done with k = ', k_range[k])
+  }
+  return(REM_output)
 }
