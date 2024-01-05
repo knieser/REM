@@ -15,22 +15,22 @@ controlREM(
 )
 }
 \arguments{
-\item{steps}{maximum number of epsilons considered in the analysis (default = 25).}
+\item{steps}{number of steps in binary search for optimal epsilon value (default = 25)}
 
-\item{tol}{tolerance parameter to check for convergence (default = 1e-6).}
+\item{tol}{tolerance parameter to check for convergence of EM and REM algorithm (default = 1e-6)}
 
-\item{maxiter}{maximum iterations allowed to calculate the estimates (default = 1e3)}
+\item{maxiter}{maximum number iterations of EM and REM algorithm (default = 1e3)}
 
-\item{min_weights}{Lower bound for the individual weights estimated by REM}
+\item{min_weights}{lower bound for the individual weights estimated by REM (default = 1e-30)}
 
-\item{max_ueps}{The largest epsilon value to check when searching for the optimal epsilon.}
+\item{max_ueps}{percentile of the distribution of likelihood values to use as the maximum epsilon value to consider}
 
 \item{chk_gamma}{gamma value used when searching for epsilon}
 
-\item{n}{The simulated n in checkEpsFA}
+\item{n}{sample size of simulated data used when checking heuristic criterion in the epsilon search}
 }
 \value{
-control parameters used in the REM package (steps, tol, maxiter, min_weights,ueps,n).
+control parameters used in the REM package (steps, tol, maxiter, min_weights, ueps, n).
 }
 \description{
 Control parameters for REM package
@@ -42,5 +42,5 @@ Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in 
 \code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=REM_CFA]{REM_CFA()}}
 }
 \author{
-Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
+Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 }

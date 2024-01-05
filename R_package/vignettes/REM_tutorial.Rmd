@@ -1,8 +1,8 @@
 ---
-title: "REM"
+title: "REM_tutorial"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{REM}
+  %\VignetteIndexEntry{REM_tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -54,9 +54,7 @@ df <- HolzingerSwineford1939
 head(df)
 ```
 
-# Preprocessing 
-
-The REM package necessitates data in a matrix format and the selection of variables relevant to the required scores for factor analysis. In the context of the Holzinger data set, it's important to note that only scores will be used in the analysis and therefore, all covariates outside of the test variables were eliminated.
+We limit the data to the columns that will be used in the analysis. Data can be either in a matrix or data frame and must be numeric.
 
 ```{r}
 data = df[,-c(1:6)] 
@@ -65,11 +63,10 @@ data = df[,-c(1:6)]
 
 # Modeling using REM for Exploratory Factor Analysis
 
-The REM_EFA function, specifically designed for conducting exploratory factor analysis, necessitates data to be structured in matrix form, along with the specification of two crucial parameters: k_range and delta. The k_range parameter comprises a vector that defines the range of factors to be modeled. In the example provided, the algorithm conducts exploratory analysis for 2, 3, and 4 factors. Moreover, the delta parameter serves as a critical hyper-parameter, ranging from 0 to 1, and it reflects the researcher's tolerance level for potentially down-weighting data inaccurately within the model, and therefore allowing for heterogeneity.
+The REM_EFA function, specifically designed for conducting exploratory factor analysis, requires specification of two parameters: k_range and delta. The k_range parameter comprises a vector of numbers of factors to be modeled. In the example provided, the algorithm conducts exploratory analysis with 1 to 4 factors. Moreover, the delta parameter serves as a hyper-parameter, ranging from 0 to 1, and it reflects the researcher's tolerance level for potentially down-weighting data inaccurately within the model. The default for the delta parameter is 0.05.
 
-The output of this model is organized into three distinct lists, each corresponding to the number of factors under consideration, thereby facilitating a comprehensive exploration of factor structures.
+The output contains a separate list of estimates for each number of factors under consideration.
 
-Here we chose to perform an exploratory factor analysis model with  one to three factors with a delta = 0.05. 
 
 ```{r}
 model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
@@ -95,11 +92,10 @@ We want to know what is the distribution of the weights to know how much people 
 
 hist(model_EFA[[2]]$REM_output$weights,main="REM Weight Distribution",xlab = "Weights", ylab = "Frequency")
 ```
+
 # Confirmatory Factor Analysis
 
-To conduct a confirmatory factor analysis, several parameters need to be defined, including X (the numeric data frame under consideration), delta (a crucial hyper-parameter), and the model which consists of structural equations relating the measured variables with the latent variables. This model parameter converts the structural equations into a $p \times k$ matrix, where 'p' is determined by the number of variables in the data set, and 'k' represents the number of factors being modeled.
-
-Consider the following example. Based on our earlier analysis, it has been determined that the model with the lowest BIC is the one that contains two factors. As a result, we will employ the REM_CFA function to conduct a confirmatory factor analysis with three factors (k = 3). For simplicity, the model  will establish the following relationships between the variables and the factors: 
+To conduct a confirmatory factor analysis, several parameters need to be defined, including X (the numeric data frame under consideration), delta (a hyper-parameter), and the model which consists of structural equations relating the measured variables with the latent variables. We consider the following three factor model: 
 
 $$Visual = x1 + x2 + x3 $$
 $$Textual = x4 + x5 + x6 $$

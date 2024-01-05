@@ -7,13 +7,13 @@
 REM_CFA(X, delta = 0.05, model = NA, ctrREM = controlREM())
 }
 \arguments{
-\item{X}{numeric data frame containing all the variables needed in the factor analysis}
+\item{X}{data to analyze; should be a data frame or matrix}
 
 \item{delta}{hyperparameter between 0 and 1 that captures the researcher’s tolerance of incorrectly down-weighting data from the model (default = 0.05).}
 
 \item{model}{string variable that contains each structural equation in a new line where equalities are denoted by the symbol "~".}
 
-\item{ctrREM}{provides control parameters (default: controlREM(steps = 25, tol = 1e-6, maxiter = 1e3))}
+\item{ctrREM}{control parameters (default: (steps = 25, tol = 1e-6, maxiter = 1e3, min_weights = 1e-30, max_ueps =  0.3, chk_gamma = 0.9, n = 2e4))}
 }
 \value{
 REM_CFA returns an object of class "REM". The function \code{\link[=summary]{summary()}} is used to obtain estimated parameters from the model. An object of class "REM" in Confirmatory Factor Analysis is a list of outputs with four different components: the matched call (call), estimates using traditional expectation maximization (EM_output), estimates using robust expectation maximization (REM_output), and a summary table (summary_table). The list contains the following components:
@@ -25,25 +25,18 @@ REM_CFA returns an object of class "REM". The function \code{\link[=summary]{sum
 \item{epsilon}{hyperparameter on the likelihood scale}
 \item{AIC_rem}{Akaike Information Criterion}
 \item{BIC_rem}{Bayesian Information Criterion}
-\item{mu}{intercept}
-\item{lambda}{loadings}
-\item{psi}{unique variance}
+\item{mu}{item intercepts}
+\item{lambda}{factor loadings}
+\item{psi}{unique variances of items}
 \item{gamma}{average weights}
-\item{weights}{weights}
+\item{weights}{estimated REM weights}
 \item{ind_lik}{likelihood value for each individual}
 \item{lik_rem}{joint log-likelihood evaluated at REM estimates}
 \item{lik}{joint log-likelihood evaluated at EM estimates}
-\item{method}{indicator for CFA or EFA}
-\item{parameter}{parameters presented}
-\item{estimates}{estimates from the analisis}
-\item{se}{standard errors}
-\item{Z}{z statistic}
-\item{pvalue}{p-value}
-\item{ci.lower}{lower 95\% confidence interval}
-\item{ci.upper}{upper 95\% confidence interval}
+\item{summary_table}{summary of EM and REM estimates, SEs, Z statistics, p-values, and 95\% confidence intervals}
 }
 \description{
-Robust Estimation Maximization Estimates for Confirmatory Factor Analysis
+This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of a confirmatory factor analysis model as suggested by Nieser & Cochran (2021).
 }
 \references{
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
@@ -52,5 +45,5 @@ Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in 
 \code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary]{summary()}}
 }
 \author{
-Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
+Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 }

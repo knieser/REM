@@ -1,5 +1,7 @@
 #' Robust Estimation Maximization Estimates for Confirmatory Factor Analysis
-#' @param X data to analyze; should be a dataframe or matrix
+#' @description
+#' This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of a confirmatory factor analysis model as suggested by Nieser & Cochran (2021).
+#' @param X data to analyze; should be a data frame or matrix
 #' @param delta hyperparameter between 0 and 1 that captures the researcher’s tolerance of incorrectly down-weighting data from the model (default = 0.05).
 #' @param model string variable that contains each structural equation in a new line where equalities are denoted by the symbol "~".
 #' @param ctrREM control parameters (default: (steps = 25, tol = 1e-6, maxiter = 1e3, min_weights = 1e-30, max_ueps =  0.3, chk_gamma = 0.9, n = 2e4))
@@ -12,22 +14,15 @@
 #'  \item{epsilon}{hyperparameter on the likelihood scale}
 #'  \item{AIC_rem}{Akaike Information Criterion}
 #'  \item{BIC_rem}{Bayesian Information Criterion}
-#'  \item{mu}{intercept}
-#'  \item{lambda}{loadings}
-#'  \item{psi}{unique variance}
+#'  \item{mu}{item intercepts}
+#'  \item{lambda}{factor loadings}
+#'  \item{psi}{unique variances of items}
 #'  \item{gamma}{average weights}
-#'  \item{weights}{weights}
+#'  \item{weights}{estimated REM weights}
 #'  \item{ind_lik}{likelihood value for each individual}
 #'  \item{lik_rem}{joint log-likelihood evaluated at REM estimates}
 #'  \item{lik}{joint log-likelihood evaluated at EM estimates}
-#'  \item{method}{indicator for CFA or EFA}
-#'  \item{parameter}{parameters presented}
-#'  \item{estimates}{estimates from the analisis}
-#'  \item{se}{standard errors}
-#'  \item{Z}{z statistic}
-#'  \item{pvalue}{p-value}
-#'  \item{ci.lower}{lower 95% confidence interval}
-#'  \item{ci.upper}{upper 95% confidence interval}
+#'  \item{summary_table}{summary of EM and REM estimates, SEs, Z statistics, p-values, and 95% confidence intervals}
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [REM_EFA()], [summary()]
