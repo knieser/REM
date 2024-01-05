@@ -1,13 +1,13 @@
 #' Control parameters for REM package
-#' @param steps maximum number of epsilons considered in the analysis (default = 25).
-#' @param tol tolerance parameter to check for convergence (default = 1e-6).
-#' @param maxiter maximum iterations allowed to calculate the estimates (default = 1e3)
-#' @param min_weights Lower bound for the individual weights estimated by REM
-#' @param max_ueps The largest epsilon value to check when searching for the optimal epsilon.
+#' @param steps number of steps in binary search for optimal epsilon value (default = 25)
+#' @param tol tolerance parameter to check for convergence of EM and REM algorithm (default = 1e-6)
+#' @param maxiter maximum number iterations of EM and REM algorithm (default = 1e3)
+#' @param min_weights lower bound for the individual weights estimated by REM (default = 1e-30)
+#' @param max_ueps percentile of the distribution of likelihood values to use as the maximum epsilon value to consider
 #' @param chk_gamma gamma value used when searching for epsilon
-#' @param n The simulated n in checkEpsFA
-#' @return control parameters used in the REM package (steps, tol, maxiter, min_weights,ueps,n).
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
+#' @param n sample size of simulated data used when checking heuristic criterion in the epsilon search
+#' @return control parameters used in the REM package (steps, tol, maxiter, min_weights, ueps, n).
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [REM_EFA()], [REM_CFA()]
 #' @export

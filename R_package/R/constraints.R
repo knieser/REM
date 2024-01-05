@@ -6,7 +6,7 @@
 #' @returns matrix of zeros and ones indicating the relationship that wants to be modeled
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
-#' @export
+#' @noRd
 
 
 constraints <- function(X,order) {

@@ -4,7 +4,7 @@ Version: 1.0
 Date: 2023-07-21
 Authors@R: c(
     person("Bryan", "Ortiz-Torres", , "bortiztorres@wisc.edu", role = c("aut", "cre")),
-    person("Kenneth", "Nieser", , "nieser@wisc.edu", role = "aut",
+    person("Kenneth", "Nieser", , "nieser@stanford.edu", role = "aut",
            comment = c(ORCID = "0000-0001-6003-1296"))
   )
 Description: Traditional latent variable models assume that the population

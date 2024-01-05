@@ -1,8 +1,8 @@
 #' Robust Estimation Maximization Estimates for Confirmatory Factor Analysis
-#' @param X numeric data frame containing all the variables needed in the factor analysis
+#' @param X data to analyze; should be a dataframe or matrix
 #' @param delta hyperparameter between 0 and 1 that captures the researcher’s tolerance of incorrectly down-weighting data from the model (default = 0.05).
 #' @param model string variable that contains each structural equation in a new line where equalities are denoted by the symbol "~".
-#' @param ctrREM provides control parameters (default: controlREM(steps = 25, tol = 1e-6, maxiter = 1e3))
+#' @param ctrREM control parameters (default: (steps = 25, tol = 1e-6, maxiter = 1e3, min_weights = 1e-30, max_ueps =  0.3, chk_gamma = 0.9, n = 2e4))
 #' @returns REM_CFA returns an object of class "REM". The function [summary()] is used to obtain estimated parameters from the model. An object of class "REM" in Confirmatory Factor Analysis is a list of outputs with four different components: the matched call (call), estimates using traditional expectation maximization (EM_output), estimates using robust expectation maximization (REM_output), and a summary table (summary_table). The list contains the following components:
 #'  \item{call}{match call}
 #'  \item{model}{model frame}
@@ -28,7 +28,7 @@
 #'  \item{pvalue}{p-value}
 #'  \item{ci.lower}{lower 95% confidence interval}
 #'  \item{ci.upper}{upper 95% confidence interval}
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [REM_EFA()], [summary()]
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
