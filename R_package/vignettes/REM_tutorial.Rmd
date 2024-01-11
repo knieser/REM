@@ -72,7 +72,6 @@ The output contains a separate list of estimates for each number of factors unde
 model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
 ```
 
-
 # The summary function
 
 The summary function selects the optimal model using the lowest score of Bayesian Information Criterion (BIC) from the number of factors considered. In other words, it selects the optimal model after considering the BIC in the models with 1, 2, and 3 factors.
