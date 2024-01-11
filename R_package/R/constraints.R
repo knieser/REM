@@ -21,8 +21,8 @@ constraints <- function(X,order) {
   latent_vars <- c()
 
   for (line in lines) {
-    if (grepl("~", line)) {
-      parts <- strsplit(line, "~")[[1]]
+    if (grepl("=~", line)) {
+      parts <- strsplit(line, "=~")[[1]]
       latent_var <- trimws(parts[1])
       indicators <- c(indicators, strsplit(trimws(parts[2]), "\\+")[[1]]) #change this part to allow for not spaces between plus signs
       indicators <- trimws(indicators)
@@ -37,8 +37,8 @@ constraints <- function(X,order) {
   colnames(matrix_data) <- latent_vars
 
   for (line in lines) {
-    if (grepl("~", line)) {
-      parts <- strsplit(line, "~")[[1]]
+    if (grepl("=~", line)) {
+      parts <- strsplit(line, "=~")[[1]]
       latent_var <- trimws(parts[1])
       indicators <- strsplit(trimws(parts[2]), "\\+")[[1]]
       indicators <- trimws(indicators)

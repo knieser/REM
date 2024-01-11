@@ -104,9 +104,9 @@ In the provided structural equation model, three latent variables, "$Visual$","$
 
 ```{r}
 # Define your model as a string
-model <- " visual ~ x1  +  x2  +  x3 
-          Textual ~ x4 + x5 + x6
-          Speed ~ x7 + x8 + x9
+model <- " visual =~ x1  +  x2  +  x3 
+          Textual =~ x4 + x5 + x6
+          Speed =~ x7 + x8 + x9
 "
 ```
 
