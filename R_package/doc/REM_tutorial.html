@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>REM_tutorial</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">REM_tutorial</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(REM)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Package &#39;REM&#39; version 1.0</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt;  REM is a BETA software.</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; For documentation, questions, and issues please see github link https://github.com/knieser/REM.</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; Type &#39;citation(&quot;REM&quot;)&#39; for citing this R package in publications.</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code></pre></div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette introduces the use of the robust expectation
+maximization (REM) algorithm; a statistical method for estimating the
+parameters of a latent variable model in the presence of population
+heterogeneity as suggested by <a href="https://psycnet.apa.org/doi/10.1037/met0000413">Nieser &amp;
+Cochran (2023)</a>. The REM algorithm is based on the
+expectation-maximization (EM) algorithm, but it allows for the case when
+not all the data are generated by the assumed data generating model.</p>
+</div>
+<div id="data-description" class="section level1">
+<h1>Data Description</h1>
+<p>To illustrate the practical application of the REM (Robust
+Expectation Maximization) package for both Exploratory and Confirmatory
+Factor Analysis, we have chosen to employ it in the context of the
+Holzinger and Swineford dataset publicly available in the lavaan
+package.</p>
+<p>The Holzinger and Swineford dataset consist of mental ability test
+scores of seventh and eighth grade children from two different schools.
+Originally, this dataset consisted of 26 test scores but this modified
+version in the lavaan package consist of 15 variables, 9 of which are
+test scores.</p>
+<ul>
+<li><strong>Covariates</strong>
+<ul>
+<li><code>id</code>: student’s Identification number.</li>
+<li><code>sex</code>: Gender (1 = male, 2 = female).</li>
+<li><code>ageyr</code>: Age year part.</li>
+<li><code>agemo</code>: Age month part.</li>
+<li><code>school</code>: Shool (Pasteur or Grant-White).</li>
+<li><code>grade</code>: Grade (7 = 7th grade, 8 = eighth grade).</li>
+<li><code>x1</code>: Visual perception.</li>
+<li><code>x2</code>: Cubes.</li>
+<li><code>x3</code>: Lozenges.</li>
+<li><code>x4</code>: Paragraph comprehension.</li>
+<li><code>x5</code>: Sentence completion.</li>
+<li><code>x6</code>: Word meaning.</li>
+<li><code>x7</code>: Speeded addition.</li>
+<li><code>x8</code>: Speeded counting of dots.</li>
+<li><code>x9</code>: Speeded discrimination straight and curved
+capitals.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-16</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> HolzingerSwineford1939</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;   id sex ageyr agemo  school grade       x1   x2    x3       x4   x5        x6</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 1  1   1    13     1 Pasteur     7 3.333333 7.75 0.375 2.333333 5.75 1.2857143</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 2  2   2    13     7 Pasteur     7 5.333333 5.25 2.125 1.666667 3.00 1.2857143</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 3  3   2    13     1 Pasteur     7 4.500000 5.25 1.875 1.000000 1.75 0.4285714</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 4  4   1    13     2 Pasteur     7 5.333333 7.75 3.000 2.666667 4.50 2.4285714</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 5  5   2    12     2 Pasteur     7 4.833333 4.75 0.875 2.666667 4.00 2.5714286</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 6  6   2    14     1 Pasteur     7 5.333333 5.00 2.250 1.000000 3.00 0.8571429</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;         x7   x8       x9</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 1 3.391304 5.75 6.361111</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 2 3.782609 6.25 7.916667</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 3 3.260870 3.90 4.416667</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 4 3.000000 5.30 4.861111</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 5 3.695652 6.30 5.916667</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 6 4.347826 6.65 7.500000</span></span></code></pre></div>
+<p>We limit the data to the columns that will be used in the analysis.
+Data can be either in a matrix or data frame and must be numeric.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="ot">=</span> df[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)] </span></code></pre></div>
+</div>
+<div id="modeling-using-rem-for-exploratory-factor-analysis" class="section level1">
+<h1>Modeling using REM for Exploratory Factor Analysis</h1>
+<p>The REM_EFA function, specifically designed for conducting
+exploratory factor analysis, requires specification of two parameters:
+k_range and delta. The k_range parameter comprises a vector of numbers
+of factors to be modeled. In the example provided, the algorithm
+conducts exploratory analysis with 1 to 4 factors. Moreover, the delta
+parameter serves as a hyper-parameter, ranging from 0 to 1, and it
+reflects the researcher’s tolerance level for potentially down-weighting
+data inaccurately within the model. The default for the delta parameter
+is 0.05.</p>
+<p>The output contains a separate list of estimates for each number of
+factors under consideration.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>model_EFA <span class="ot">=</span> <span class="fu">REM_EFA</span>( <span class="at">X =</span> data, <span class="at">k_range =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">delta =</span> <span class="fl">0.05</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; EFA with 1 factors </span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt;  getting EM estimates...done </span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt;  searching for optimal epsilon.........................done </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt;  getting REM estimates...done </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt;  calculating standard errors...done </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; EFA with 2 factors </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt;  getting EM estimates...done </span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt;  searching for optimal epsilon.........................done </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt;  getting REM estimates...done </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt;  calculating standard errors...done </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; EFA with 3 factors </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt;  getting EM estimates...done </span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt;  searching for optimal epsilon.........................done </span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt;  getting REM estimates...done </span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt;  calculating standard errors...done</span></span></code></pre></div>
+</div>
+<div id="the-summary-function" class="section level1">
+<h1>The summary function</h1>
+<p>The summary function selects the optimal model using the lowest score
+of Bayesian Information Criterion (BIC) from the number of factors
+considered. In other words, it selects the optimal model after
+considering the BIC in the models with 1, 2, and 3 factors.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">summary</span>(model_EFA)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; -----Exploratory factor analysis using REM----- </span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Call: REM_EFA(X = data, k_range = 1:3, delta = 0.05) </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; According to BIC evaluated at REM estimates,</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  the optimal number of factors is: 3 </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; REM estimates w/ delta = 0.05 ( epsilon = 8.792328e-07 )</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Est. gamma = 0.849 </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; x1     4.897    0.113    0.708   -0.043   0.373</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; x2     5.639    0.050    0.394   -0.142   0.821</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; x3     2.050   -0.147    0.565    0.044   0.684</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; x4     2.871    0.799    0.098    0.002   0.295</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; x5     3.524    0.925   -0.060   -0.006   0.210</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; x6     2.255    0.835    0.014    0.012   0.304</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; x7     3.893    0.043   -0.132    0.782   0.459</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; x8     5.842   -0.043    0.046    0.765   0.450</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; x9     5.724   -0.020    0.374    0.511   0.510</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000    0.286    0.341</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.286    1.000    0.136</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.341    0.136    1.000</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; EM estimates </span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; x1     4.237    0.178    0.589    0.028   0.513</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; x2     5.180    0.037    0.495   -0.126   0.749</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; x3     1.993   -0.084    0.674    0.021   0.543</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; x4     2.641    0.843    0.020    0.003   0.282</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; x5     3.379    0.894   -0.067    0.004   0.244</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; x6     2.003    0.810    0.075   -0.016   0.307</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; x7     3.849    0.026   -0.150    0.762   0.497</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; x8     5.468   -0.054    0.103    0.731   0.473</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; x9     5.335    0.015    0.358    0.482   0.544</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000    0.149    0.357</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.149    1.000    0.030</span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.357    0.030    1.000</span></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; Difference (EM - REM) </span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt; x1    -0.661    0.065   -0.119    0.071   0.140</span></span>
+<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="co">#&gt; x2    -0.459   -0.014    0.101    0.016  -0.072</span></span>
+<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="co">#&gt; x3    -0.057    0.063    0.109   -0.023  -0.140</span></span>
+<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="co">#&gt; x4    -0.230    0.045   -0.078    0.001  -0.014</span></span>
+<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="co">#&gt; x5    -0.145   -0.031   -0.006    0.010   0.033</span></span>
+<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt; x6    -0.251   -0.024    0.062   -0.027   0.003</span></span>
+<span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a><span class="co">#&gt; x7    -0.045   -0.017   -0.018   -0.019   0.038</span></span>
+<span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="co">#&gt; x8    -0.374   -0.010    0.056   -0.034   0.022</span></span>
+<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt; x9    -0.389    0.035   -0.015   -0.029   0.034</span></span>
+<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="co">#&gt; Factor 1    0.000   -0.137    0.015</span></span>
+<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.137    0.000   -0.106</span></span>
+<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.016   -0.107    0.000</span></span></code></pre></div>
+<p>From the REM and EM output above, note that <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_5\)</span>, and <span class="math inline">\(x_6\)</span> are strongly correlated with Factor
+1. Similarly, <span class="math inline">\(x1_\)</span>,<span class="math inline">\(x_2\)</span>, and <span class="math inline">\(x_3\)</span> are moderately correlated with factor
+2 and that <span class="math inline">\(x_7\)</span>, <span class="math inline">\(x_8\)</span> and <span class="math inline">\(x_9\)</span> are moderately correlated with Factor
+3. Additionally, the gamma or average REM weight was 0.849.</p>
+<div id="plot-distribution-of-the-weights" class="section level2">
+<h2>Plot Distribution of the weights</h2>
+<p>We want to know what is the distribution of the weights to know how
+much people are getting down-weighted.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">hist</span>(model_EFA[[<span class="dv">2</span>]]<span class="sc">$</span>REM_output<span class="sc">$</span>weights,<span class="at">main=</span><span class="st">&quot;REM Weight Distribution&quot;</span>,<span class="at">xlab =</span> <span class="st">&quot;Weights&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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6/L2li1bWo0aNUydkZPdHV59hdRERkIAAQQQQAABBBIFIhcAvfnmmy6w2X333e2qq64yjVh5xBFH2H333ZdYNqYRQAABBBBAAIGkApFrAnvwwQfdZeqTJk1yBbr55pvthhtuMI1cWbt2bWp9kp5mZiKAAAIIIIBAUCByAZBuhRFs2srLy7ObbrrJtm3bZhobqFmzZqZ7gZEQQAABBBBAAIFUApFrAmvatKlpkMPEdOutt5pGZT799NPdZfKJy5lGAAEEEEAAAQR8gcgFQOrc/Morr7janlmzZvnlcI+PPvqoHXnkkW78n88++yzfMiYQQAABBBBAAAFfIHIB0JlnnmnXX3+9Pfnkk+7PL4geq1SpYuPGjbM+ffrYwoULg4t4jgACCCCAAAIIxAUi1wdIOR8xYoS7Amz16tXxgvhPqlevbo899phdcMEFtmLFCn82jwgggAACCCCAQFwgkgGQcq8xgHbeeed4QRKfHHrooYmzmEYAAQQQQAABBJxA5JrAOG8IIIAAAggggEBpBQiASivI9ggggAACCCAQOQECoMidMjKMAAIIIIAAAqUVIAAqrSDbI4AAAggggEDkBAiAInfKyDACCCCAAAIIlFaAAKi0gmyPAAIIIIAAApETIACK3CkjwwgggAACCCBQWgECoNIKsj0CCCCAAAIIRE6AAChyp4wMI4AAAggggEBpBQiASivI9ggggAACCCAQOQECoMidMjKMAAIIIIAAAqUVIAAqrSDbI4AAAggggEDkBAiAInfKyDACCCCAAAIIlFaAAKi0gmyPAAIIIIAAApETIACK3CkjwwgggAACCCBQWgECoNIKsj0CCCCAAAIIRE6AAChyp4wMI4AAAggggEBpBQiASivI9ggggAACCCAQOQECoMidMjKMAAIIIIAAAqUVIAAqrSDbI4AAAggggEDkBCIfAMViMVu5cqX98ssvkcMnwwgggAACCCBQMQKRDICWLVtmw4cPtxYtWli1atWscePG1qBBA6tbt661a9fOrrzySlu7dm3FiHJUBBBAAAEEEAi9QJXQ5zAhg0uWLLGuXbtaXl6e9e3b11q1amX169d306oFWrRokY0fP94mTJhgU6dOtdatWyfsgUkEEEAAAQQQyHWByAVAo0aNcjU/U6ZMserVqyc9fyNHjrRevXrZmDFj7MYbb0y6DjMRQAABBBBAIHcFItcENnv2bBs4cGDK4EensmrVqjZ48GCbNGlS7p5ZSo4AAggggAACKQUiFwB16dLFZsyYkbJA/oJp06ZZs2bN/EkeEUAAAQQQQACBuEDkmsD69etnCoJWrFhh/fv3d3181AG6UqVK7kqwxYsX29NPP20TJ040NZOREEAAAQQQQACBRIHIBUDt27e3uXPn2tChQ23QoEG2ffv2xDJZz549bfLkydatW7cCy5iBAAIIIIAAAghELgDSKWvTpo27wmvz5s22dOlSU63P77//bhs3bnQ1QgcddJBVrlyZs4sAAggggAACCCQViFwfoDvvvNNGjBjhCqMxgBQMffTRR/aHP/zB1Dx26KGHWtu2bV0NUNISMxMBBBBAAAEEcl4gcjVAav7SyM9+euyxx+zaa6+1o446ygVAa9assbFjx1qfPn3svffeMzWZkRBAAAEEEEAAgaBA5AKgYOb1/OGHH7ZOnTrl6/B8+eWXW4cOHeyuu+6yxx9/PHETphFAAAEEEEAgxwUi1wSWeL5Wr15tAwYMSJxtQ4YMsTlz5hSYn26GBk+sUaNG2r+ZM2favHnz0u2O5QgggAACCCAQQoFI1gBt2LDBtmzZ4gY87N27t+neYInpk08+sYYNGybOTjutYOrMM89Mu94RRxxh++yzT9r1WAEBBBBAAAEEwicQuQBI9wCbPn261a5d2w444ACrV6+e6+uj+4IdeOCB9v3339utt95qTz75pN13333FFtd4QqlusRHcmdZTXkgIIIAAAgggED2ByDWBPfTQQzZr1ix74IEHrHPnzrZp0yarUqWKLVy40Om/9tprbpmawM4999zonRFyjAACCCCAAAJlLhC5GiBd+q4ru/Sn+335aevWre7pSSedZCeccII1b97cX8QjAggggAACCCCQTyByAVC+3AcmVAuk1LRp08BcniKAAAIIIIAAAgUFItcEVrAIzEEAAQQQQAABBIonQABUPC/WRgABBBBAAIEsEIhcANSxY0erVatWkf6SjQ+UBeeMIiCAAAIIIIBAKQXS9gF655137IUXXnAdjtu1a1fKw5V+89GjR9tpp51muhHqddddZ7ocPVXac889Uy1iPgIIIIAAAgjksEDaAEjj7LzxxhvuthIKgHTlVf/+/a1Ro0YVwnb44Yfbu+++664C27Ztmw0bNqxC8sFBEUAAAQQQQCC6AqmrT/5bpv3339/mz5/v7riu0Y81yGCzZs3czUZffPFFNyJzeRdfNTs333yz3XLLLfbzzz+X9+E5HgIIIIAAAghEXCBtAOSXT31v7rnnHvvhhx9ck1iDBg1cbZAuO9fNR7/88kt/1XJ51DFffvllUy0QCQEEEEAAAQQQKI5AkQMgf6dLly51IzF/+umntmbNGmvVqpXpxqC6L9aIESP81cr8sXLlyta9e3dr3LhxmR+LAyCAAAIIIIBAdgmk7QOk4q5atcrGjRtnTz31lH3wwQfWpEkTO/vss930vvvu60Sef/55O+OMM+yUU06xDh06ZJcSpUEAAQQQQACBrBJIGwC9/fbb1rNnT1foE0880TU79erVy91/Kyhx/PHHu8kVK1YEZ/McAQQQQAABBBAInUDaAEhj7tx+++1pr/zSHdR//PFHVzsUulKSIQQQQAABBBBAICCQtg+QOj9fdtll9uabb9q3334b3/Siiy7K1/FZ9+JS0xgJAQQQQAABBBAIu0DaAEgFOPbYY90VX6rhUYrFYjZnzhzbb7/93PhAbib/EEAAAQQQQACBiAikDYC+/vpre+utt+zzzz+3Ll26uGLl5eXZjBkz7O9//7v9+c9/dqMyR6S8ZBMBBBBAAAEEELC0AdDUqVNNzWDJbiuhe22tX7/edGk8CQEEEEAAAQQQiIpA2gBor732sg8//NC+++67AmV69dVXTePxaGRoEgIIIIAAAgggEBWBtAFQp06dbOedd3bj/kybNs2+//57++abb2zs2LHuZqR9+/a1mjVrRqW85BMBBBBAAAEEELC0l8HXqFHD3nvvPTvhhBPsqKOOykd2+umn2/33359vHhMIIIAAAggggEDYBdIGQCrArrvuanPnznW1P7Nnz3bNXmoaa9myZdjLR/4QQAABBBBAAIECAkUKgPytmjdvbvojIYAAAggggAACURYoUgCkJrC77rrL1QBt3ry5QHk//vjjAvOYgQACCCCAAAIIhFUgbQCkq7+OO+44q1u3rnXu3Nnq1KkT1rKQLwQQQAABBBBAoEgCaQMgjQNUqVIl1wdop512KtJOWQkBBBBAAAEEEAizQNrL4HXbC/X7IfgJ82kkbwgggAACCCBQHIG0AVD37t3dTVDnzZtXnP2yLgIIIIAAAgggEFqBtE1gGgeoX79+1q1bNzvzzDNdbZBGfw6mq6++OjjJcwQQQAABBBBAINQCaQMg3fX9+eefd4V46qmnkhaGACgpCzMRQAABBBBAIKQCaQOgY4891n777beQZp9sIYAAAggggAACxRdI2wcouMt169a5q8HWrl1rmzZtCi7iOQIIIIAAAgggEBmBIgVAugGq7vu14447Wrt27Wz+/Pk2fPhwGzZsmK1fv75CC6ur1FauXGm//PJLheaDgyOAAAIIIIBAdATSBkAa+fnkk0+2BQsW2OjRo61WrVqudIcffrg98sgjdvnll5d7aZctW+YCsBYtWli1atWscePG1qBBAzdYowK0K6+80lRLRUIAAQQQQAABBJIJpO0DNGXKFFPAoQBIo0HfcMMNbj+nnXaaGxV60KBBplqYvLy8ZPvP+LwlS5ZY165d3fH69u1rrVq1svr167tp1QItWrTIxo8fbxMmTDAN4ti6deuM54EdIoAAAggggEC0BdIGQF9//bXtu+++LvhJLOrBBx9sy5cvt8WLF5fbneFHjRplqvlRYFa9evXELLnpkSNHWq9evWzMmDF24403Jl2HmQgggAACCCCQuwJpm8BatmxpM2bMcP1sEpmeffZZq1KlijVr1ixxUZlNz5492wYOHJgy+NGBq1ataoMHD7ZJkyaVWT7YMQIIIIAAAghEVyBtANSjRw83+OHxxx9vY8eOte3bt5tqhUaMGOH+NEii+uGUV+rSpYsLyNIdb9q0aeUamKXLD8sRQAABBBBAIDwCaZvAdOXXiy++6GpUFOwoDRgwwD326dPH7r77bve8vP4pDwqCVqxYYf3793d9fNQBWjdsVR8gNcc9/fTTNnHiRNdMVl754jgIIIAAAgggEB2BtAGQinLAAQfYxx9/bJ988omr/VGNj/oF7b333uVe0vbt27uxiIYOHWrqgK0aqcTUs2dPmzx5srt9R+IyphFAAAEEEEAAgSIFQGJSDYs6PeuvolObNm3cFV66RH/p0qWu1mfLli3WtGlT11ynGiESAggggAACCCCQSiBtAPTBBx/YNddck2p7N3/69OmFLi+rhaqJ0mXuujxfN2jV5fAkBBBAAAEEEEAgnUDaTtC61HyXXXbJ97fDDjvYd999Z++//74deuih6Y6R8eUMhJhxUnaIAAIIIIBATgmkrQE68MAD3dVfiSoa/PDSSy91TVCJy8pymoEQy1KXfSOAAAIIIJAbAmkDoFQMGvlZ9wJT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MT4v+GTOnDmxSpUqxV566aX47C+++MK9QF9//fX4vFx9svfee8e8GrV8xfdqdmJ//OMf880LThx77LGxli1bBmfFxo0b50z1wZrLqbSvt2nTpsUaNGgQ835BxgiA/veVVJL3/Y8//ui+rB977LH4y3H9+vUuUFdAlOupJO/7kSNHOtNVq1bF+RSs77DDDjGvuSc+L1ef6EekLNq2bVukAKi0nxVhdqYJrAwq4VT9etxxx5lXQxHf+8knn2zeG9I++uij+LzgE6/Wx7waDuvVq1d89l577WV77rmnTZw4MT4vF5+oycoLBu2UU07JV/zevXsXajNkyBDzfv3l28YLiNz0b7/9lm9+rk2U5vWm6nAv8LQ777zTNdXm5eXlGl/S8pbkff/cc8+ZV/tjgwYNiu+zZs2a9s0339jAgQPj83LxSUnf915gblu2bDEvkIyzbd261TnzWjXzAkTXbF3U75XSfFbET0BInxAAlcGJ0YdX8+bN8+25WbNmbtr7xZdvvj/x9ddfm9qqFQQFk9poV6xYEZyVc8/lqeQb+gCyWblypaXq6HjaaaeZVwvkr+4en376aatSpYoddNBB+ebn2kRpXm9XXXWVeb8e831p55pfsvKW5H2/dOlS10dN50NBZYcOHWzw4MH2ww8/JDtETs0r6fv+pJNOst12283OO+88mzJlio0ePdr0vldfNQIgs08++cT++te/FviuSfXiKs1nRap9hmV+lbBkJJvysWbNGvfLOFimevXqucmffvopODv+3GvvL7CNFu600045HwDJU0m/7IJJNrqCQR3FFTymSx988IE9+OCDrkOkgqdcTiV9vekLRV8mn332WS7zJS17Sd73CnR+/fVX69atm+sE7fVPM3XcV23SvHnz3Ps/6cFyYGZJ3/e77LKLeU3ddthhhzlHUZ1wwgn25z//OQfU0hexSZMm6VcKrFHSz4rALkL7lBqgMjg1qmGoXLlyvj3rl4f+vM63+eb7E1rf6wPkT8YftY0uVczlJE+lRB9/uig++tVz4oknul/YRbkiL9u9S/J60xeS15HUbrvtNtt9992znajY5SvJ+15NsXPnznW1E14HaNMVT2omX758uY0aNarYecimDUr6vvcufrDu3bu7q3Dfe+89u/fee+3zzz+3448/vtiXfGeTZ0nLUpLPipIeq7y3K/iNW945yMLj7bzzzu5XXbBoq1evVodz865GCM6OP9evFv0STEzaLtU2ietm67Q8lRJ9/GldOlxY0hdLjx49TH2q1O6tPha5nkryetMQDfowVDONatP0p34WatbV81TBfa5Yl+R9r1/j+pEz2Gv28tMBBxxg3hU69uGHH/qzcvKxpO/7+++/3w3P4F19a507d3bBpfqr6XLvVH0wcxK4iIUuyWdFEXdd4asRAJXBKdALJrHfjj/td8JNPKze7OokndifRdu1aNEicfWcmvY/CH1Dv/Ca1nhJhQWI+gWojuX6IFSzQt26df3Nc/qxJK+3jz/+2DR2SJcuXZynTL/99lsbP368m07Vvy1XoEvyvldTrMa10rbBpBq2xM+C4PJceF7S971+8HiXwOcjUu1v1apVzRsOI998JtILlOSzIv1ew7EGAVAZnAdVv77xxhv5PsC8S9nNu/QwZedbbaOra7zxf+I5WrJkiesHoP4BuZz05aDaGxkGk2pzCrP56quv3NV4PXv2tFdeecV90QS3z+XnJXm96Yol9UsJ/mkgRG+8Kzcv1/tVleR9r4E9NUCfgks/ecNnuEE+NdhnLqeSvu91scSCBQtPjmnzAAALoElEQVTy0ak2TVeGJQaa+VZiIqlAST4rku4ojDPDfI1+VPPmXb4Z89qvY8OGDXODmb3//vsxr6o7dscdd8SL5P1ydgNzacBDP3lf5jHv6qSY9ys75nWWjnk1FzHvVzYDIXpA9913nxu7QoN2aZwU78oONxCi90Hn88W8L2hn6o+/5A1FEPOau2IPP/xwzOu4m+9PA4HleirK6+3qq6921qmsNBaTxlghxWJFed8nvkbl5jUpujFZvL5AMe9Hjxu4U+O0aPyVXE9Fed8nvkb12eA1K7pBU71+azFvVO2YV2sZ8wKjmNdsnuuk8fJ/9913SccByqXvJgZCjL8cMvvk3//+txsoTm9Ejep6/vnnx7yxKOIHmTlzpnvxaXRiP+nDr1OnTm6+V10bO/roo2Per21/cU4/er/eYt5w9i6wlKkGSNMI28GkgNP7kRHTh553dY17rulkf0H34D5y6XlRXm/e5cQxDSiZKhEA5ZdJ974Pvkb9LTUY4jHHHOO+tPXa1mjlDH76vzpFed8nvkY12KEGntWPH3nq/d+xY0cCSv8F99/HVAFQLn035cnCe4GQykBAtIsXL7Zdd93VjT1T1ENobBt1NlX/FlJ+AW8kbdNQAhrng5QZAV5vmXH091LS970uN9ZVYYljiPn7zeXHkrzvNUSG+qzpc5TP0sy8erLts4IAKDOvC/aCAAIIIIAAAhESoBN0hE4WWUUAAQQQQACBzAgQAGXGkb0ggAACCCCAQIQECIAidLLIKgIIIIAAAghkRoAAKDOO7AUBBBBAAAEEIiRAABShk0VWEUAAAQQQQCAzAgRAmXFkLwgggAACCCAQIQECoAidLLKKAAIIIIAAApkRIADKjCN7QQABBBBAAIEICRAARehkkVUEEEAAAQQQyIwAAVBmHNkLAggggAACCERIgAAoQieLrCKAAAIIIIBAZgQIgDLjyF4QQAABBBBAIEICBEAROllkFQEEEEAAAQQyI0AAlBlH9oIAAggggAACERIgAIrQySKrCCCAAAIIIJAZAQKgzDiyFwQQQAABBBCIkAABUIROFllFAAEEEEAAgcwIEABlxpG9IIAAAggggECEBAiAInSyyCoCCCCAAAIIZEaAACgzjuwFAQQQQAABBCIkQAAUoZNFVhFAAAEEEEAgMwIEQJlxZC8IIIAAAgggECEBAqAInSyyigACCCCAAAKZESAAyowje0EAAQQQQACBCAkQAEXoZJFVBBBAAAEEEMiMAAFQZhzZCwIIBAROO+00a9OmTWDO/z69/fbbLS8vzwYOHFhgWa9eveyQQw4pMD/VjJ122sn+9re/pVpcYP4bb7zhjr148eICy/wZ27dvt3/+85+2ceNGfxaPCCCQpQIEQFl6YikWAhUp0L17d1u4cKGtXLkyXzbefPNN23nnnU2PwaTA47333rOjjjoqOLvQ5/3797f999+/0HWKu/C5556ziy66yLZt21bcTVkfAQQiJkAAFLETRnYRiIKAAiClDz74IJ5d1aq8++67ds0119iPP/5on332WXyZnq9Zs6ZYAdB9991nxx9/fHwfmXiiQIyEAAK5IUAAlBvnmVIiUK4C++yzjzVq1Mjef//9+HEV/CjAGDJkiDVt2tQmT54cXzZjxgyrXr26HXbYYfF5n3/+uR1zzDFWv35922OPPezaa6+1LVu2xJcryHriiSfi02ra8vetmqFx48bZ2WefbQ8//HB8HT1ZsGCBHX300VavXj3r1KmTvfLKK275yy+/bNddd517fvjhh9uTTz7pnn/00UfWrVs3q127trVs2dLOOecc+/XXX90y/iGAQHQFCICie+7IOQKhFVA/nyOPPDJfDZCavTp37my1atWyHj165AuAFBx16dLFatas6cr05Zdfuv5AP//8s91xxx12xRVX2IMPPmiDBw+Ol3n27NmuJkkzNm/ebKeffroLuEaPHu2asS6++GKbMGGCLV++PL6Nnpx66ql2wAEH2F//+le3Xd++fV1z3d577+0CLq0zdOhQO/DAA23dunWulkl5fuSRR1w+Jk2aZGp+IyGAQLQFqkQ7++QeAQTCKqAamquvvtr1p6lcubLr93PKKae47Kqvj/raqFmsRo0aphqg888/P16UESNGuGBI87VcSTVKClauuuoqa9++fXxdPVFw8sknn5hqjfbdd1+3bPfdd7cTTjgh33qaUJ6uv/56N//QQw+1Dh06uG3POOMMO+KII1ygNWDAANthhx3sww8/tFWrVtltt90WP+Yuu+xi77zzjsViMdepusABmIEAApEQIACKxGkikwhET0AB0Nq1a11fn+bNm5tqbP7xj3+4gigA2rBhg3388cemQGXp0qX5+v+89dZbLhiZN29evOCNGze2SpUquc7SiQGQgh81q/nBjzZS/6A6derEt/efBDtaaz877rijpboyTE15qv1R4KVaoZNPPtnVNKm2iYQAAtEWoAks2ueP3CMQWoG99trLXfGljtBTp051gcbBBx/s8rvrrru6fj0KgFTLo0ClY8eObtn69evd1WMvvfSSm6f5+lM/HPUhWrJkSYEyf/HFF655LXGBamsSkwIlP6mprlq1arZ161Z/Vr5HBUe6fF79k1Tz1LZtW3flmeaREEAg2gLUAEX7/JF7BEItoFogBTlVqlRxAYwe/aSaGC1r2LBhvmXqB6RmrwsvvNBuueUWf/X4Y9WqVePP/Sfax+rVq/3J+KOarxKTgp7ipK5du7qmNfVLUodpNbepaU2X+av2ioQAAtEUoAYomueNXCMQCQF1hP70009dLU+w6UmZV0doXWE1c+bMfM1fClBUe6QaIDU/+X+6dP6ss86yWbNmFSi7rubSfoJXZ2nf6kRdnOQHR/7l8Kq9OvHEE91+lSfVAj3zzDOuX1OyfBTnWKyLAAIVK0AAVLH+HB2BrBZQDZA6Js+fP9969uyZr6xaploUBUiJwZEueV+0aJHpSi6to9qXc8891z3X1VmJSR2q1Uyl2pqnnnrK7rzzTuvdu3fiammn1eSl9MILL9h3333nmrsUSA0bNsz1E9IVZY8//ripU7euaCMhgEB0BQiAonvuyDkCoRfQ+D3qvKwruIIdlJVxNVtpvB7d0mK//fbLVxZ1Or7//vtt7Nix7pYaulJLV2WNGTPGkjWBaUwf1daos/Wll17qmqlGjRrlxu7xL63Pd4AUExr/Rx2jdbm9brOhY+ry+6+++sr1WVL/IdVMvfrqq9akSZMUe2E2AghEQSDPu5QzFoWMkkcEEMg9AX08qSZGAVRhgYxqidRspYDLT+pMrcELH330URs0aJA/u0iP6k+k2qBgnyWNVK1xgZJ1rC7STlkJAQRCJUANUKhOB5lBAIGggPrk7LbbboUGP1p/+vTppoEMNW6P0qZNm2z48OGuWUxNbcVNqlEKBj/aXleqEfwUV5L1EQivADVA4T035AwBBIoooIBHHaQnTpzoLr3/6aefXACjvjy67QUJAQQQSBQgAEoUYRoBBCIroCYqjdKsfke63UViLU5kC0bGEUAg4wIEQBknZYcIIIAAAgggEHYB+gCF/QyRPwQQQAABBBDIuAABUMZJ2SECCCCAAAIIhF2AACjsZ4j8IYAAAggggEDGBQiAMk7KDhFAAAEEEEAg7AIEQGE/Q+QPAQQQQAABBDIuQACUcVJ2iAACCCCAAAJhFyAACvsZIn8IIIAAAgggkHEBAqCMk7JDBBBAAAEEEAi7AAFQ2M8Q+UMAAQQQQACBjAsQAGWclB0igAACCCCAQNgFCIDCfobIHwIIIIAAAghkXIAAKOOk7BABBBBAAAEEwi5AABT2M0T+EEAAAQQQQCDjAgRAGSdlhwgggAACCCAQdgECoLCfIfKHAAIIIIAAAhkXIADKOCk7RAABBBBAAIGwCxAAhf0MkT8EEEAAAQQQyLgAAVDGSdkhAggggAACCIRdgAAo7GeI/CGAAAIIIIBAxgX+P90Ynop7oXkqAAAAAElFTkSuQmCC" /><!-- --></p>
+</div>
+</div>
+<div id="confirmatory-factor-analysis" class="section level1">
+<h1>Confirmatory Factor Analysis</h1>
+<p>To conduct a confirmatory factor analysis, several parameters need to
+be defined, including X (the numeric data frame under consideration),
+delta (a hyper-parameter), and the model which consists of structural
+equations relating the measured variables with the latent variables. We
+consider the following three factor model:</p>
+<p><span class="math display">\[Visual = x1 + x2 + x3 \]</span> <span class="math display">\[Textual = x4 + x5 + x6 \]</span> <span class="math display">\[Speed = x7 + x8 + x9\]</span> In the provided
+structural equation model, three latent variables, “<span class="math inline">\(Visual\)</span>”,“<span class="math inline">\(Textual\)</span>”, and “<span class="math inline">\(Speed\)</span>”, are being defined and on a set of
+observed variables. To create the model parameter, first create a string
+variable that contains each equation in a new line and separate
+equalities using the <span class="math inline">\(~\)</span> symbol as
+shown below.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Define your model as a string</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot; visual =~ x1  +  x2  +  x3 </span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="st">          Textual =~ x4 + x5 + x6</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="st">          Speed =~ x7 + x8 + x9</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<p>This model is used to investigate the relationships between the
+latent variables “visual”,“textual”, and “speed” and their respective
+sets of observed variables by examining how well the observed variables
+predict the underlying constructs. The model will estimate coefficients
+for these relationships, providing information about the strength and
+direction of these associations.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># CFA model with delta = 0.05</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>model_CFA <span class="ot">=</span> <span class="fu">REM_CFA</span>(<span class="at">X =</span> data,<span class="at">delta =</span> <span class="fl">0.05</span>,<span class="at">model =</span> model)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; CFA with 3 factors </span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt;  getting EM estimates...done </span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;  searching for optimal epsilon.........................done </span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt;  getting REM estimates...done </span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt;  calculating standard errors...done</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">summary</span>(model_CFA)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; -----Confirmatory factor analysis using REM----- </span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; Call: REM_CFA(X = data, delta = 0.05, model = model) </span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Model:     visual =~ x1  +  x2  +  x3 </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;           Textual =~ x4 + x5 + x6</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;           Speed =~ x7 + x8 + x9</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;  </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; REM estimates w/ delta = 0.05 ( epsilon = 8.017646e-07 )</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Est. gamma = 0.83 </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; x1     5.035    0.821    0.000    0.000   0.326</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; x2     5.754    0.359    0.000    0.000   0.871</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; x3     2.058    0.500    0.000    0.000   0.750</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; x4     2.896    0.000   -0.843    0.000   0.289</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; x5     3.558    0.000   -0.871    0.000   0.241</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; x6     2.269    0.000   -0.840    0.000   0.295</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; x7     3.895    0.000    0.000    0.634   0.598</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; x8     5.859    0.000    0.000    0.752   0.435</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; x9     5.757    0.000    0.000    0.657   0.569</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000   -0.496    0.359</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.496    1.000   -0.261</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.359   -0.261    1.000</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; EM estimates </span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; x1     4.236    0.764    0.000    0.000   0.416</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; x2     5.180    0.427    0.000    0.000   0.818</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; x3     1.993    0.585    0.000    0.000   0.657</span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; x4     2.637    0.000   -0.851    0.000   0.276</span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; x5     3.373    0.000   -0.855    0.000   0.270</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; x6     2.001    0.000   -0.838    0.000   0.298</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; x7     3.848    0.000    0.000    0.567   0.679</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; x8     5.467    0.000    0.000    0.719   0.483</span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; x9     5.334    0.000    0.000    0.670   0.552</span></span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000   -0.459    0.478</span></span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.459    1.000   -0.285</span></span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.478   -0.285    1.000</span></span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="co">#&gt; Difference (EM - REM) </span></span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt; x1    -0.799   -0.057    0.000    0.000   0.090</span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt; x2    -0.575    0.068    0.000    0.000  -0.053</span></span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; x3    -0.064    0.085    0.000    0.000  -0.092</span></span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt; x4    -0.259    0.000   -0.008    0.000  -0.013</span></span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; x5    -0.184    0.000    0.017    0.000   0.029</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; x6    -0.269    0.000    0.002    0.000   0.003</span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt; x7    -0.047    0.000    0.000   -0.067   0.081</span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; x8    -0.391    0.000    0.000   -0.033   0.049</span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; x9    -0.423    0.000    0.000    0.013  -0.017</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; Factor 1    0.000    0.037    0.119</span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.038    0.000   -0.024</span></span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.119   -0.024    0.000</span></span></code></pre></div>
+<p>The output above depicts estimate for the confirmatory analysis. Note
+that again <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_5\)</span>, and <span class="math inline">\(x_6\)</span> are strongly correlated with Factor
+1. Similarly, <span class="math inline">\(x1_\)</span>,<span class="math inline">\(x_2\)</span>, and <span class="math inline">\(x_3\)</span> are moderately correlated with factor
+2 and that <span class="math inline">\(x_7\)</span>, <span class="math inline">\(x_8\)</span> and <span class="math inline">\(x_9\)</span> are moderately correlated with Factor
+3. However, the gamma or average REM weight was 0.831.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
