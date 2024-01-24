@@ -85,7 +85,7 @@ From the REM and EM output above, note that $x_4$, $x_5$, and $x_6$ are strongly
 
 ## Plot Distribution of the weights
 
-We want to know what is the distribution of the weights to know how much people are getting down-weighted.
+In the following plot we show the distribution of the weights to know how much people are getting down-weighted.
 
 ```{r}
 
@@ -99,7 +99,7 @@ To conduct a confirmatory factor analysis, several parameters need to be defined
 $$Visual = x1 + x2 + x3 $$
 $$Textual = x4 + x5 + x6 $$
 $$Speed = x7 + x8 + x9$$
-In the provided structural equation model, three latent variables, "$Visual$","$Textual$", and "$Speed$", are being defined and on a set of observed variables. To create the model parameter, first create a string variable that contains each equation in a new line and separate equalities using the $~$ symbol as shown below. 
+In the provided structural equation model, three latent variables, "$Visual$","$Textual$", and "$Speed$", are being defined and on a set of observed variables. To create the model parameter, first create a string variable that contains each equation in a new line and separate equalities using the $=~$ symbol as shown below. 
 
 ```{r}
 # Define your model as a string
