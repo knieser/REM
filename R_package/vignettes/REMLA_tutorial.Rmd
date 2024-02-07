@@ -1,5 +1,5 @@
 ---
-title: "REMLA_tutorial"
+title: "REMLAr_tutorial"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{REM_tutorial}
