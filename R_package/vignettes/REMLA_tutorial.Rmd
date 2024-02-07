@@ -1,5 +1,5 @@
 ---
-title: "REM_tutorial"
+title: "REMLA_tutorial"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{REM_tutorial}
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(REM)
+library(REMLA)
 library(GPArotation)
 ```
 

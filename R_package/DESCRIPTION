@@ -1,5 +1,5 @@
-Package: REM
-Title: Robust Expectation-Maximization estimation for addressing sample heterogeneity
+Package: REMLA
+Title: Robust Expectation-Maximization estimation for Latent Variable Models
 Version: 1.0
 Date: 2023-07-21
 Authors@R: c(
