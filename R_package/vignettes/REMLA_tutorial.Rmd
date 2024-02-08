@@ -123,5 +123,5 @@ model_CFA = REM_CFA(X = data,delta = 0.05,model = model)
 ```{r}
 summary(model_CFA)
 ```
-The output above depicts estimate for the confirmatory analysis. Note that again  $x_4$, $x_5$, and $x_6$ are strongly correlated with Factor 1. Similarly, $x1_$,$x_2$, and $x_3$ are moderately correlated with factor 2 and that $x_7$, $x_8$ and $x_9$ are moderately correlated with Factor 3. However, the gamma or average REM weight was 0.833. Note that the difference between the EM and REM intercepts are negative indicating that this down-weighted group has lower average item scores.
+The output above depicts estimate for the confirmatory analysis. Note that again  $x_4$, $x_5$, and $x_6$ are strongly correlated with Factor 1. Similarly, $x_1$,$x_2$, and $x_3$ are moderately correlated with factor 2 and that $x_7$, $x_8$ and $x_9$ are moderately correlated with Factor 3. However, the gamma or average REM weight was 0.833. Note that the difference between the EM and REM intercepts are negative indicating that this down-weighted group has lower average item scores.
 
