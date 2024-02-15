@@ -1,7 +1,7 @@
 Package: REMLA
-Title: Robust Expectation-Maximization estimation for Latent Variable Models
+Title: Robust Expectation-Maximization Estimation for Latent Variable Models
 Version: 1.0
-Date: 2023-07-21
+Date: 2024-02-08
 Authors@R: c(
     person("Bryan", "Ortiz-Torres", , "bortiztorres@wisc.edu", role = c("aut", "cre")),
     person("Kenneth", "Nieser", , "nieser@stanford.edu", role = "aut",
