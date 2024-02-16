@@ -42,7 +42,7 @@ This function uses the robust expectation maximization (REM) algorithm to estima
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 }
 \seealso{
-\code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary]{summary()}}
+\code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary.REMLA]{summary.REMLA()}}
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)

@@ -1,5 +1,5 @@
 ---
-title: "REMLAr_tutorial"
+title: "REMLA_tutorial"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{REM_tutorial}
@@ -26,8 +26,7 @@ This vignette introduces the use of the robust expectation maximization (REM) al
 # Data Description 
 To illustrate the practical application of the REM (Robust Expectation Maximization) package for both Exploratory and Confirmatory Factor Analysis, we have chosen to employ it in the context of the Holzinger and Swineford dataset publicly available in the lavaan package. 
 
-The Holzinger and Swineford dataset consist of mental ability test scores of seventh and eighth grade children from two different schools. Originally, this
-dataset consisted of 26 test scores but this modified version in the lavaan package consist of 15 variables, 9 of which are test scores.
+The Holzinger and Swineford dataset consist of mental ability test scores of seventh and eighth grade children from two different schools. Originally, this dataset consisted of 26 test scores but this modified version in the lavaan package consist of 15 variables, 9 of which are test scores.
 
 - __Covariates__
     - `id`: student's Identification number.
@@ -80,7 +79,7 @@ The summary function displays the estimates of the optimal model which is select
 summary(model_EFA)
 ```
 
-From the REM and EM output above, note that $x_4$, $x_5$, and $x_6$ strongly load on Factor 1. Similarly, $x1_$,$x_2$, and $x_3$ moderately load on Factor 2 and that $x_7$, $x_8$ and $x_9$ moderately load on Factor 3. Additionally, the gamma or average REM weight was 0.849, indicating that about 15 percent of the sample differed in the factor model parameters from the majority of the sample. 
+From the REM and EM output above, note that $x_4$, $x_5$, and $x_6$ strongly load on Factor 1. Similarly, $x_1$,$x_2$, and $x_3$ moderately load on Factor 2 and that $x_7$, $x_8$ and $x_9$ moderately load on Factor 3. Additionally, the gamma or average REM weight was 0.849, indicating that about 15 percent of the sample differed in the factor model parameters from the majority of the sample. 
 
 
 ## Plot Distribution of the weights
@@ -89,7 +88,10 @@ In the following plot we show the distribution of the weights to know how much p
 
 ```{r}
 
-hist(model_EFA[[2]]$REM_output$weights,main="REM Weight Distribution",xlab = "Weights", ylab = "Frequency")
+hist(model_EFA[[2]]$REM_output$weights,
+     main="REM Weight Distribution",
+     xlab = "Weights", 
+     ylab = "Frequency")
 ```
 
 # Confirmatory Factor Analysis
@@ -123,5 +125,5 @@ model_CFA = REM_CFA(X = data,delta = 0.05,model = model)
 ```{r}
 summary(model_CFA)
 ```
-The output above depicts estimate for the confirmatory analysis. Note that again  $x_4$, $x_5$, and $x_6$ are strongly correlated with Factor 1. Similarly, $x_1$,$x_2$, and $x_3$ are moderately correlated with factor 2 and that $x_7$, $x_8$ and $x_9$ are moderately correlated with Factor 3. However, the gamma or average REM weight was 0.833. Note that the difference between the EM and REM intercepts are negative indicating that this down-weighted group has lower average item scores.
+The output above depicts estimates for the confirmatory analysis. Note that again  $x_4$, $x_5$, and $x_6$ are strongly correlated with Factor 1. Similarly, $x_1$,$x_2$, and $x_3$ are moderately correlated with factor 2 and that $x_7$, $x_8$ and $x_9$ are moderately correlated with Factor 3. However, the gamma or average REM weight was 0.833. Note that the difference between the EM and REM intercepts are negative indicating that this down-weighted group has lower average item scores.
 

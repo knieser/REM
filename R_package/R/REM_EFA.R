@@ -31,7 +31,7 @@
 #' @returns The summary function can be used to obtain estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
-#' @seealso [summary.REM()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
+#' @seealso [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export

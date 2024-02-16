@@ -2,7 +2,7 @@
 #' @importFrom utils packageVersion
 
 
-REMStartupMessage <- function()
+REMLAStartupMessage <- function()
 {
   msg <- c(paste0(
     " This is REMLA version ",
@@ -14,9 +14,9 @@ REMStartupMessage <- function()
 .onAttach <- function(lib, pkg)
 {
 
-  msg <- REMStartupMessage()
+  msg <- REMLAStartupMessage()
   if(!interactive())
-    msg[1] <- paste("Package 'REM' version", packageVersion("REM"))
+    msg[1] <- paste("Package 'REMLA' version", packageVersion("REMLA"))
   packageStartupMessage(msg)
   invisible()
 }

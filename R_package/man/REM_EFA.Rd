@@ -50,7 +50,7 @@ This function uses the robust expectation maximization (REM) algorithm to estima
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 }
 \seealso{
-\code{\link[=summary.REM]{summary.REM()}} for more detailed summaries, \code{\link[=oblimin]{oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
+\code{\link[=summary.REMLA]{summary.REMLA()}} for more detailed summaries, \code{\link[=oblimin]{oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)

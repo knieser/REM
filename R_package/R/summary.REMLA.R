@@ -20,7 +20,7 @@
 #' @export
 
 
-summary.REM = function(object,...) {
+summary.REMLA = function(object,...) {
 
   x = object
 

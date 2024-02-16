@@ -25,7 +25,7 @@
 #'  \item{summary_table}{summary of EM and REM estimates, SEs, Z statistics, p-values, and 95% confidence intervals}
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
-#' @seealso [REM_EFA()], [summary()]
+#' @seealso [REM_EFA()], [summary.REMLA()]
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export
