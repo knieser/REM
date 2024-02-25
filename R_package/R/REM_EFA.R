@@ -32,6 +32,15 @@
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
+#' @examples
+#' # Modeling Exploratory Factor Analysis
+#' library(lavaan)
+#' df <- HolzingerSwineford1939
+#' data = df[,-c(1:6)]
+#'
+#' model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
+#' summary(model_EFA)
+#'
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export
@@ -116,6 +125,6 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
   names(REM_output) <- paste0("nf", 1:k)
   REM_output$call <- cl
   REM_output$delta <- delta
-  class(REM_output) <- "REM"
+  class(REM_output) <- "REMLA"
   return(REM_output)
 }

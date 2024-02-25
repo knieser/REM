@@ -98,9 +98,9 @@ hist(model_EFA[[2]]$REM_output$weights,
 
 To conduct a confirmatory factor analysis,we need to specify a model  which consists of structural equations relating the measured variables with the latent variables. We consider the following three factor model: 
 
-$$Visual = x1 + x2 + x3 $$
-$$Textual = x4 + x5 + x6 $$
-$$Speed = x7 + x8 + x9$$
+$$Visual = x_1 + x_2 + x_3 $$
+$$Textual = x_4 + x_5 + x_6 $$
+$$Speed = x_7 + x_8 + x_9$$
 To create the model parameter, first create a string variable that contains each equation in a new line and separate equalities using the $=~$ symbol as shown below. 
 
 ```{r}

@@ -7,7 +7,7 @@
 \method{summary}{REMLA}(object, ...)
 }
 \arguments{
-\item{object}{an object of class "REM", usually a result of a call to \link{REM_EFA}.}
+\item{object}{an object of class "REMLA", usually a result of a call to \link{REM_EFA}.}
 
 \item{...}{further arguments passed to or from other methods.}
 }
@@ -24,13 +24,13 @@ Output include:
 \item{diff}{differences between EM and REM}
 }
 \description{
-Summary method for class "REM".
+Summary method for class "REMLA".
 }
 \references{
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 }
 \seealso{
-the model fitting function \link{REM_EFA}, \link{summary}.
+the model fitting function \code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary]{summary()}}.
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)

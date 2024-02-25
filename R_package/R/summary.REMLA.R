@@ -1,8 +1,8 @@
 #' Summary for Robust Estimation Maximization
 #' @description
-#' Summary method for class "REM".
+#' Summary method for class "REMLA".
 #'
-#' @param object an object of class "REM", usually a result of a call to [REM_EFA].
+#' @param object an object of class "REMLA", usually a result of a call to [REM_EFA].
 #' @param ... further arguments passed to or from other methods.
 #' @return The summary.REM function returns estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 #' @return Output include:
@@ -15,7 +15,7 @@
 #'  \item{diff}{differences between EM and REM}
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
-#' @seealso the model fitting function [REM_EFA], [summary].
+#' @seealso the model fitting function [REM_EFA()], [summary()].
 #' @importFrom stats factanal quantile rnorm varimax
 #' @export
 
@@ -98,7 +98,7 @@ summary.REMLA = function(object,...) {
   ans$epsilon <- epsilon
   ans$gamma <- gamma
   ans$diff <- as.data.frame(ans$EM-ans$REM)
-  class(ans) <- "summary.REM"
+  class(ans) <- "summary.REMLA"
 
   #return(ans)
 }

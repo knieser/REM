@@ -26,6 +26,20 @@
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [REM_EFA()], [summary.REMLA()]
+#' @examples
+#' # Creating latent model
+#' library(lavaan)
+#' df <- HolzingerSwineford1939
+#' data = df[,-c(1:6)]
+#'
+#' model <- "Visual  =~  x1 + x2 + x3
+#'          Textual =~  x4 + x5 + x6
+#'          Speed   =~  x7 + x8 + x9"
+#'
+#' # Modeling Confirmatory Factor Analysis
+#' model_CFA = REM_CFA(X = data, delta = 0.05, model = model)
+#' summary(model_CFA)
+#'
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export
@@ -119,6 +133,6 @@ REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
     summary_table = summary_table
 )
 
-  class(output) <- "REM"
+  class(output) <- "REMLA"
   return(output)
 }
