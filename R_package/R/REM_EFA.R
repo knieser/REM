@@ -35,6 +35,7 @@
 #' @examples
 #' # Modeling Exploratory Factor Analysis
 #' library(lavaan)
+#' library(GPArotation)
 #' df <- HolzingerSwineford1939
 #' data = df[,-c(1:6)]
 #'
@@ -47,7 +48,7 @@
 
 REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = controlREM()){
 
-  if (any(is.na(X) == TRUE)) print("rows with missing values were removed")
+  if (any(is.na(X) == TRUE)) warning("rows with missing values were removed")
 
   X = na.omit(as.matrix(X))
   n = nrow(X)
@@ -61,7 +62,9 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
   REM_output = vector(mode = 'list', length = length(k_range))
 
   for (k in 1:length(k_range)){
-    cat('EFA with', k_range[k], 'factors', '\n')
+    string <- paste('EFA with', k_range[k], 'factors', '\n')
+    message(string)
+
     constraints = matrix(1, nrow = p, ncol = k_range[k])
     out = REM_estimates(X, k_range[k], delta, constraints, rotation, ctrREM)
 

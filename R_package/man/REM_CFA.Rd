@@ -41,6 +41,7 @@ This function uses the robust expectation maximization (REM) algorithm to estima
 \examples{
 # Creating latent model
 library(lavaan)
+library(GPArotation)
 df <- HolzingerSwineford1939
 data = df[,-c(1:6)]
 

@@ -31,7 +31,7 @@ epsilon_search <- function(X, delta, constraints, rotation, ueps, intl_mu, intl_
 
   # binary search
   for (iter in 1:steps){
-    cat('.')
+
     # take midpoint between lower and upper epsilon
     eps_range[iter] = (leps + ueps)/2
 

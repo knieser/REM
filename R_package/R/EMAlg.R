@@ -13,6 +13,7 @@
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
+#' @importFrom GPArotation oblimin
 #' @noRd
 
 EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){

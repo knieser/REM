@@ -29,6 +29,7 @@
 #' @examples
 #' # Creating latent model
 #' library(lavaan)
+#' library(GPArotation)
 #' df <- HolzingerSwineford1939
 #' data = df[,-c(1:6)]
 #'
@@ -45,7 +46,7 @@
 #' @export
 REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
 
-  if (any(is.na(X) == TRUE)) print("rows with missing values were removed")
+  if (any(is.na(X) == TRUE)) warning("rows with missing values were removed")
   X = na.omit(as.matrix(X))
   n = nrow(X)
   p = ncol(X)
@@ -61,7 +62,8 @@ REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
   try(if(ncol(constraints) != k) stop(paste0("constraints should have k = ", k, " columns")))
   try(if(any(!(constraints %in% c(0,1)))) stop(paste0("constraints should only contain 0s and 1s")))
 
-  cat('CFA with', k, 'factors', '\n')
+  string <- paste('CFA with', k, 'factors', '\n')
+  message(string)
   out <- REM_estimates(X, k, delta, constraints, rotation = 0, ctrREM)
 
   # summary table
