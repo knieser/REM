@@ -33,6 +33,7 @@
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
 #' @examples
+#' \donttest{
 #' # Modeling Exploratory Factor Analysis
 #' library(lavaan)
 #' library(GPArotation)
@@ -41,7 +42,7 @@
 #'
 #' model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
 #' summary(model_EFA)
-#'
+#' }
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export

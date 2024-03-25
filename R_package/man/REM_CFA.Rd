@@ -39,6 +39,7 @@ REM_CFA returns an object of class "REM". The function \code{\link[=summary]{sum
 This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of a confirmatory factor analysis model as suggested by Nieser & Cochran (2021).
 }
 \examples{
+\donttest{
 # Creating latent model
 library(lavaan)
 library(GPArotation)
@@ -52,7 +53,7 @@ model <- "Visual  =~  x1 + x2 + x3
 # Modeling Confirmatory Factor Analysis
 model_CFA = REM_CFA(X = data, delta = 0.05, model = model)
 summary(model_CFA)
-
+}
 }
 \references{
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.

@@ -47,6 +47,7 @@ The summary function can be used to obtain estimated parameters from the optimal
 This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of an exploratory factor analysis model as suggested by Nieser & Cochran (2021).
 }
 \examples{
+\donttest{
 # Modeling Exploratory Factor Analysis
 library(lavaan)
 library(GPArotation)
@@ -55,7 +56,7 @@ data = df[,-c(1:6)]
 
 model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
 summary(model_EFA)
-
+}
 }
 \references{
 Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.

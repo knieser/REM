@@ -27,6 +27,7 @@
 #' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
 #' @seealso [REM_EFA()], [summary.REMLA()]
 #' @examples
+#' \donttest{
 #' # Creating latent model
 #' library(lavaan)
 #' library(GPArotation)
@@ -40,7 +41,7 @@
 #' # Modeling Confirmatory Factor Analysis
 #' model_CFA = REM_CFA(X = data, delta = 0.05, model = model)
 #' summary(model_CFA)
-#'
+#' }
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @importFrom GPArotation oblimin
 #' @export
