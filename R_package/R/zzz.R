@@ -1,5 +1,6 @@
 #' REM Startup Message
 #' @importFrom utils packageVersion
+#' @noRd
 
 
 REMLAStartupMessage <- function()
