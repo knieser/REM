@@ -23,7 +23,7 @@ REM_estimates <- function(X, k, delta, constraints, rotation, ctrREM = controlRE
   p = ncol(X)
 
   # EM estimates
-  message(' getting EM estimates...')
+  message('getting EM estimates...')
   EM_output <- EMAlg(X, k, constraints, rotation, ctrREM)
   mu1 = EM_output$mu
   lambda1 = EM_output$lambda
@@ -33,19 +33,19 @@ REM_estimates <- function(X, k, delta, constraints, rotation, ctrREM = controlRE
   message('done', '\n')
 
   # epsilon search
-  message(' searching for optimal epsilon')
+  message('searching for optimal epsilon')
   max_ueps <- ctrREM$max_ueps
   ueps = quantile(exp(ind_lik), max_ueps) #the epsilon value is below the 0.30 percentile of the likelihood
   opt_eps = epsilon_search(X, delta, constraints, rotation, ueps, mu1, lambda1, psi1, phi1, ctrREM)
   message('done', '\n')
 
   # REM algorithm
-  message(' getting REM estimates...')
+  message('getting REM estimates...')
   REM_output = RobustEMAlg(X, k, opt_eps, constraints, rotation, mu1, lambda1, psi1, phi1, ctrREM)
   message('done', '\n')
 
   # standard errors
-  message(' calculating standard errors...')
+  message('calculating standard errors...')
   se <- calcSE(X, constraints, opt_eps, EM_output, REM_output)
   EM_output$mu.se = se[grep('^EM_mu', names(se))]
   EM_output$lambda.se = se[grep('^EM_lambda', names(se))]
