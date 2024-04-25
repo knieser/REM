@@ -12,11 +12,11 @@ In MATLAB, with an input p-by-n dataset X, REM estimation for
 Simulations can be run from `Psych_Methods_paper/MixtureModel/GMM_sim_main.m` and `Psych_Methods_paper/MixtureModel/FA_sim_main.m` for mixture models and factor models, respectively
 
 ## R_package
-This folder contains R package files to run exploratory and confirmatory factor analyses (EFAs and CFAs) using the REM algorithm. The following code can be used to download the package to your RStudio from Github.
+This folder contains R package files to run exploratory and confirmatory factor analyses (EFAs and CFAs) using the REM algorithm. The following code can be used to download the latest version of the package to your RStudio from Github.
 
 ``` r
 library(devtools)
-devtools::install_github('knieser/REMLA/R_package')
+devtools::install_github('knieser/REM/R_package')
 library(REMLA)
 ```
 
