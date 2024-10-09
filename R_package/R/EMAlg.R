@@ -25,7 +25,8 @@ EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){
   # sample mean and covariance matrix
   mu = apply(X, 2, mean)
   X_centered = t(apply(X, 1, function(y) y - mu))
-  Cxx = 1/n * t(X_centered) %*% X_centered
+  #Cxx = 1/n * t(X_centered) %*% X_centered
+  Cxx = 1/n * crossprod(X_centered)
 
   if(k == 1)
   {
@@ -39,7 +40,8 @@ EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){
   lambda <- matrix(intl_guess$loadings, ncol = k)
   lambda[constraints==0] <- 0
   psi <- intl_guess$uniquenesses #describes variances of the error terms (unique factors $\epsilon in the paper$)
-  phi <- inv_rotmat %*% t(inv_rotmat)
+  #phi <- inv_rotmat %*% t(inv_rotmat)
+  phi <- tcrossprod(inv_rotmat)
 
   # tolerance parameters
   tol = ctrREM$tol
@@ -53,6 +55,14 @@ EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){
     pattern.id[idx] = j
   }
 
+  # patterns <- unique(constraints)
+  # pattern.id <- rep(NA, nrow(constraints))
+  # for (j in 1:nrow(patterns)) {
+  #   matches <- rowSums(constraints == patterns[j, , drop = FALSE]) == ncol(constraints)
+  #   pattern.id[matches] <- j
+  # }
+
+
   # EM algorithm
   obj = rep(-Inf, maxiter)
   for (iter in 2:maxiter){
@@ -63,7 +73,8 @@ EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){
     inv_V = solve(V)
     logdetV = log(det(V))
     Z = t(apply(X, 1, function(y) y - mu)) %*% inv_V
-    ind_lik = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) t(y) %*% y))
+    #ind_lik = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) t(y) %*% y))
+    ind_lik = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) crossprod(y)))
 
     # calculate value for objective function
     obj[iter] = sum(ind_lik)

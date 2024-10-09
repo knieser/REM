@@ -58,7 +58,7 @@ RobustEMAlg <- function(X, k, epsilon, constraints = NA, rotation, intl_mu, intl
     inv_V = solve(V)
     logdetV = log(det(V))
     Z = t(apply(X, 1, function(y) y - mu)) %*% inv_V
-    ind_lik = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) t(y) %*% y))
+    ind_lik = -(1/2)*(p*log(2*pi) + 2*logdetV + apply(Z, 1, function(y) crossprod(y)))
 
     # calculate modified log-likelihoods
     ind_lik_rem = log(gamma*exp(ind_lik) + (1-gamma)*epsilon)
