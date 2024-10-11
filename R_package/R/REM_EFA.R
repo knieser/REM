@@ -55,9 +55,10 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
   n = nrow(X)
   p = ncol(X)
 
+  if (!all(sapply(X, is.numeric))) stop("The dataset X must be entirely numeric")
   if (p < 3) stop("X requires at least three variables")
-  try(if(any(k_range <= 0) && !isTRUE(all(k_range == floor(k_range)))) stop("k_range should only contain positive integers"))
-  try(if(delta < 0 || delta > 1) stop("delta values should be between 0 and 1"))
+  if(any(k_range <= 0) && !isTRUE(all(k_range == floor(k_range)))) stop("k_range should only contain positive integers")
+  if(delta < 0 || delta > 1) stop("delta values should be between 0 and 1")
 
   cl <- match.call()
   REM_output = vector(mode = 'list', length = length(k_range))
