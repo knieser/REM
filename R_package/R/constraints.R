@@ -11,8 +11,6 @@
 
 constraints <- function(X,order) {
 
-
-  # add condition to make matrix in the same order of variables as the original dataset. Rearrange the order at the end.
   # add stop functions to make sure that model haves the same name of variables and add all of them in the model at least once.
 
   lines <- strsplit(X, "\n")[[1]]
@@ -49,5 +47,7 @@ constraints <- function(X,order) {
     }
   }
   matrix_data2 = matrix_data[order,]
-  return(matrix_data)
+
+  if(nrow(matrix_data2) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
+  return(matrix_data2)
 }
