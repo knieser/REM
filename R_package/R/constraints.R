@@ -46,8 +46,12 @@ constraints <- function(X,order) {
       }
     }
   }
+
+
+  if(nrow(matrix_data) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
   matrix_data2 = matrix_data[order,]
 
-  if(nrow(matrix_data2) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
+  #if(nrow(matrix_data2) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
+
   return(matrix_data2)
 }

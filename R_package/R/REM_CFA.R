@@ -53,13 +53,13 @@ REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
   p = ncol(X)
   order <- colnames(X)
 
+  if (!all(sapply(X, is.numeric))) stop("The dataset X must be entirely numeric")
   constraints <- constraints(model, order)
   rownames(constraints) <- NULL
   colnames(constraints) <- NULL
   k = ncol(constraints)
 
   # error checking for constraints matrix
-  if (!all(sapply(X, is.numeric))) stop("The dataset X must be entirely numeric")
   #if(nrow(constraints) != p) stop(paste0("constraints should have p = ", p, " rows"))
   #if(ncol(constraints) != p) stop(paste0("constraints should have p = ", p, " columns"))
   if(any(!(constraints %in% c(0,1)))) stop(paste0("constraints should only contain 0s and 1s"))
