@@ -62,9 +62,6 @@ REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
   colnames(constraints) <- NULL
   k = ncol(constraints)
 
-  # error checking for constraints matrix
-  if(any(!(constraints %in% c(0,1)))) stop(paste0("constraints should only contain 0s and 1s"))
-
   string <- paste('CFA with', k, 'factors', '\n')
   message(string)
   out <- REM_estimates(X, k, delta, constraints, rotation = 0, ctrREM)
