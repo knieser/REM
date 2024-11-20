@@ -30,7 +30,7 @@ Summary method for class "REMLA".
 Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 }
 \seealso{
-the model fitting function \code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary]{summary()}}.
+\code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=REM_CFA]{REM_CFA()}}, \code{\link[=summary]{summary()}}.
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)

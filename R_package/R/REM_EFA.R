@@ -1,6 +1,6 @@
 #' Robust Estimation Maximization for Exploratory Factor Analysis
 #' @description
-#' This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of an exploratory factor analysis model as suggested by Nieser & Cochran (2021).
+#' This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of an exploratory factor analysis model as suggested by Nieser & Cochran (2023).
 #' @param X data to analyze; should be a data frame or matrix
 #' @param k_range vector of the number of factors to consider
 #' @param delta hyperparameter between 0 and 1 that captures the researcher’s tolerance of incorrectly down-weighting data from the model (default = 0.05)
@@ -31,16 +31,15 @@
 #' @returns The summary function can be used to obtain estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
-#' @seealso [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
+#' @seealso [REM_CFA()], [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
 #' @examples
 #' \donttest{
-#' # Modeling Exploratory Factor Analysis
+#' # EFA of Holzinger-Swineford dataset
 #' library(lavaan)
-#' library(GPArotation)
 #' df <- HolzingerSwineford1939
 #' data = df[,-c(1:6)]
 #'
-#' model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
+#' model_EFA = REM_EFA(X = data, k_range = 1:3)
 #' summary(model_EFA)
 #' }
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm

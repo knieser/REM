@@ -44,17 +44,16 @@ REM_EFA returns an object of class "REM". The function \code{\link[=summary]{sum
 The summary function can be used to obtain estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 }
 \description{
-This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of an exploratory factor analysis model as suggested by Nieser & Cochran (2021).
+This function uses the robust expectation maximization (REM) algorithm to estimate the parameters of an exploratory factor analysis model as suggested by Nieser & Cochran (2023).
 }
 \examples{
 \donttest{
-# Modeling Exploratory Factor Analysis
+# EFA of Holzinger-Swineford dataset
 library(lavaan)
-library(GPArotation)
 df <- HolzingerSwineford1939
 data = df[,-c(1:6)]
 
-model_EFA = REM_EFA( X = data, k_range = 1:3, delta = 0.05)
+model_EFA = REM_EFA(X = data, k_range = 1:3)
 summary(model_EFA)
 }
 }
@@ -62,7 +61,7 @@ summary(model_EFA)
 Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 }
 \seealso{
-\code{\link[=summary.REMLA]{summary.REMLA()}} for more detailed summaries, \code{\link[=oblimin]{oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
+\code{\link[=REM_CFA]{REM_CFA()}}, \code{\link[=summary.REMLA]{summary.REMLA()}} for more detailed summaries, \code{\link[=oblimin]{oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)

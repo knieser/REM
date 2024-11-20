@@ -15,7 +15,7 @@
 #'  \item{diff}{differences between EM and REM}
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
-#' @seealso the model fitting function [REM_EFA()], [summary()].
+#' @seealso [REM_EFA()], [REM_CFA()], [summary()].
 #' @importFrom stats factanal quantile rnorm varimax
 #' @export
 
