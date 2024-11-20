@@ -6,8 +6,8 @@
 #' @param REM_output list of Robust Expectation Maximization output from [REM_estimates()]
 #' @returns List of estimates:
 #'  \item{results}{data frame with list of parameter estimates, SEs, Z test statistic, p-value, and 95% confidence intervals}
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @importFrom geex m_estimate vcov
 #' @noRd
 

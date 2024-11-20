@@ -13,8 +13,8 @@
 #'  \item{epsilon}{hyperparameter on the likelihood scale}
 #'  \item{AIC_rem}{Akaike Information Criterion}
 #'  \item{BIC_rem}{Bayesian Information Criterion}
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @noRd
 
 REM_estimates <- function(X, k, delta, constraints, rotation, ctrREM = controlREM()){

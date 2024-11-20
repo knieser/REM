@@ -10,8 +10,8 @@
 #' @param intl_phi initial phi (factor correlation matrix).
 #' @param ctrREM provides control parameters (default: controlREM(steps = 25, tol = 1e-6, maxiter = 1e3))
 #' @returns optimal epsilon.
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @noRd
 
 epsilon_search <- function(X, delta, constraints, rotation, ueps, intl_mu, intl_lambda, intl_psi, intl_phi, ctrREM = controlREM()){

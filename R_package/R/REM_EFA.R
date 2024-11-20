@@ -30,7 +30,7 @@
 #'  \item{summary_table}{summary of EM and REM estimates, SEs, Z statistics, p-values, and 95% confidence intervals}
 #' @returns The summary function can be used to obtain estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @seealso [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
 #' @examples
 #' \donttest{

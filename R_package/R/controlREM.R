@@ -8,7 +8,7 @@
 #' @param n sample size of simulated data used when checking heuristic criterion in the epsilon search
 #' @return control parameters used in the REM package (steps, tol, maxiter, min_weights, ueps, n).
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @seealso [REM_EFA()], [REM_CFA()]
 #' @export
 

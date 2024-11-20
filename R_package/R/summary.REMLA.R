@@ -13,8 +13,8 @@
 #'  \item{indk_lik}{likelihood value for each individual}
 #'  \item{epsilon}{hyperparameter on the likelihood scale}
 #'  \item{diff}{differences between EM and REM}
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @seealso the model fitting function [REM_EFA()], [summary()].
 #' @importFrom stats factanal quantile rnorm varimax
 #' @export

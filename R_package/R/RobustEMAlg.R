@@ -18,8 +18,8 @@
 #'  \item{weights}{weights...}
 #'  \item{lik_rem}{joint log-likelihood evaluated at REM estimates}
 #'  \item{lik}{joint log-likelihood evaluated at EM estimates}
-#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@wisc.edu)
-#' @references Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+#' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
+#' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 #' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
 #' @noRd
 
