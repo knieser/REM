@@ -11,10 +11,7 @@
 
 constraints <- function(X,order) {
 
-  # add stop functions to make sure that model haves the same name of variables and add all of them in the model at least once.
-
   lines <- strsplit(X, "\n")[[1]]
-
   indicators <- list()
   latent_vars <- c()
 
@@ -27,8 +24,8 @@ constraints <- function(X,order) {
       latent_vars <- c(latent_vars, latent_var)
     }
   }
-
   unique_indicators <- unique(indicators)
+  if(length(unique_indicators) != length(order)) stop(paste0("The number of variables in the dataset (", length(order), ") does not match the number of variables in the model (", length(unique_indicators), ")."))
 
   matrix_data <- matrix(0, nrow = length(unique_indicators), ncol = length(latent_vars))
   rownames(matrix_data) <- unique_indicators
@@ -47,11 +44,8 @@ constraints <- function(X,order) {
     }
   }
 
-
-  if(nrow(matrix_data) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
+  # re-order so that variables are in the same order as in the dataset
   matrix_data2 = matrix_data[order,]
-
-  #if(nrow(matrix_data2) != length(order)) stop(paste0("model in CFA should have ", length(order), " variables as in the dataset"))
 
   return(matrix_data2)
 }

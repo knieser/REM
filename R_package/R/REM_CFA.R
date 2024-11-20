@@ -47,21 +47,24 @@
 #' @export
 REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){
 
-  if (any(is.na(X) == TRUE)) warning("rows with missing values were removed")
+  if (!all(sapply(X, is.numeric))) stop("The dataset should be entirely numeric.")
+  if(delta < 0 || delta > 1) stop("delta values should be between 0 and 1.")
+
+  n.missing <- sum(!complete.cases(X))
   X = na.omit(as.matrix(X))
+  if (n.missing > 0) warning(paste0(n.missing, " rows with missing values were removed."))
+
   n = nrow(X)
   p = ncol(X)
+  if (p < 3) stop("The dataset should include at least 3 variables.")
   order <- colnames(X)
 
-  if (!all(sapply(X, is.numeric))) stop("The dataset X must be entirely numeric")
   constraints <- constraints(model, order)
   rownames(constraints) <- NULL
   colnames(constraints) <- NULL
   k = ncol(constraints)
 
   # error checking for constraints matrix
-  #if(nrow(constraints) != p) stop(paste0("constraints should have p = ", p, " rows"))
-  #if(ncol(constraints) != p) stop(paste0("constraints should have p = ", p, " columns"))
   if(any(!(constraints %in% c(0,1)))) stop(paste0("constraints should only contain 0s and 1s"))
 
   string <- paste('CFA with', k, 'factors', '\n')

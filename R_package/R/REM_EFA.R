@@ -49,16 +49,17 @@
 
 REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = controlREM()){
 
-  if (any(is.na(X) == TRUE)) warning("rows with missing values were removed")
+  if (!all(sapply(X, is.numeric))) stop("The dataset should be entirely numeric.")
+  if(any(k_range <= 0) || !isTRUE(all(k_range == floor(k_range)))) stop("k_range should contain positive integers only.")
+  if(delta < 0 || delta > 1) stop("delta values should be between 0 and 1.")
 
+  n.missing <- sum(!complete.cases(X))
   X = na.omit(as.matrix(X))
+  if (n.missing > 0) warning(paste0(n.missing, " rows with missing values were removed."))
+
   n = nrow(X)
   p = ncol(X)
-
-  if (!all(sapply(X, is.numeric))) stop("The dataset X must be entirely numeric")
-  if (p < 3) stop("X requires at least three variables")
-  if(any(k_range <= 0) || !isTRUE(all(k_range == floor(k_range)))) stop("k_range should only contain positive integers")
-  if(delta < 0 || delta > 1) stop("delta values should be between 0 and 1")
+  if (p < 3) stop("The dataset should include at least 3 variables.")
 
   cl <- match.call()
   REM_output = vector(mode = 'list', length = length(k_range))
