@@ -56,7 +56,7 @@ summary(model_CFA)
 }
 }
 \references{
-Nieser, K. J., & Cochran, A. L. (2021). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological Methods.
+Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 }
 \seealso{
 \code{\link[=REM_EFA]{REM_EFA()}}, \code{\link[=summary.REMLA]{summary.REMLA()}}
