@@ -71,7 +71,7 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
     out = REM_estimates(X, k_range[k], delta, constraints, rotation, ctrREM)
 
     # summary table
-    if (k > 1){
+    if (k_range[k] > 1){
     theta = c(out$EM_output$mu,
               out$EM_output$lambda[constraints==1],
               out$EM_output$phi[lower.tri(out$EM_output$phi)],
@@ -92,7 +92,7 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
            out$REM_output$gamma.se)
     par = c(rep(c(paste0('mu', 1:p),
                   paste0('lambda', which(constraints==1)),
-                  paste0('phi', 1:(k*(k-1)/2)),
+                  paste0('phi', 1:(k_range[k]*(k_range[k]-1)/2)),
                   paste0('psi', 1:p)), 2), "gamma")
     } else{
       theta = c(out$EM_output$mu,
@@ -115,7 +115,7 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
     }
 
     summary_table <- data.frame(
-      method = c(rep(c('EM', 'REM'), each = 2*p + k*(k-1)/2 + sum(constraints==1)), 'REM'),
+      method = c(rep(c('EM', 'REM'), each = 2*p + k_range[k]*(k_range[k]-1)/2 + sum(constraints==1)), 'REM'),
       parameter = par,
       estimates = theta,
       se = se,
@@ -127,7 +127,7 @@ REM_EFA <- function(X, k_range, delta = 0.05, rotation = 'oblimin', ctrREM = con
     out$summary_table <- summary_table
     REM_output[[k]] <- out
   }
-  names(REM_output) <- paste0("nf", 1:k)
+  names(REM_output) <- paste0("nf", k_range)
   REM_output$call <- cl
   REM_output$delta <- delta
   class(REM_output) <- "REMLA"
