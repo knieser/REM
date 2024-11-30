@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Bryan Saúl Ortiz-Torres and Kenneth Nieser" />
+
+
+<title>REMLA Tutorial</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">REMLA Tutorial</h1>
+<h4 class="author">Bryan Saúl Ortiz-Torres and Kenneth Nieser</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(REMLA)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&gt; Loading required package: GPArotation</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; Loading required package: geex</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;geex&#39;</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:methods&#39;:</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co">#&gt;     show</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co">#&gt; Package &#39;REMLA&#39; version 1.2</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co">#&gt; For documentation, questions, and issues please see github link https://github.com/knieser/REM.</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co">#&gt; Type &#39;citation(&quot;REMLA&quot;)&#39; for citing this R package in publications.</span></span></code></pre></div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This vignette introduces the use of the robust expectation
+maximization (REM) algorithm; a statistical method for estimating the
+parameters of a latent variable model in the presence of population
+heterogeneity as suggested by <a href="https://psycnet.apa.org/doi/10.1037/met0000413">Nieser &amp;
+Cochran (2023)</a>. The REM algorithm is based on the
+expectation-maximization (EM) algorithm, but it allows for the case when
+not all the data are generated by the assumed data generating model.</p>
+</div>
+<div id="data-description" class="section level1">
+<h1>Data Description</h1>
+<p>To illustrate the practical application of the REM (Robust
+Expectation Maximization) package for both exploratory and confirmatory
+Factor Analysis, we have chosen to employ it in the context of the
+Holzinger and Swineford dataset publicly available in the lavaan
+package.</p>
+<p>The Holzinger and Swineford dataset consist of mental ability test
+scores of seventh and eighth grade children from two different schools.
+Originally, this dataset consisted of 26 test scores but this modified
+version in the lavaan package consist of 15 variables, 9 of which are
+test scores.</p>
+<ul>
+<li><strong>Covariates</strong>
+<ul>
+<li><code>id</code>: student’s Identification number.</li>
+<li><code>sex</code>: Gender (1 = male, 2 = female).</li>
+<li><code>ageyr</code>: Age year part.</li>
+<li><code>agemo</code>: Age month part.</li>
+<li><code>school</code>: School (Pasteur or Grant-White).</li>
+<li><code>grade</code>: Grade (7 = 7th grade, 8 = 8th grade).</li>
+<li><code>x1</code>: Visual perception.</li>
+<li><code>x2</code>: Cubes.</li>
+<li><code>x3</code>: Lozenges.</li>
+<li><code>x4</code>: Paragraph comprehension.</li>
+<li><code>x5</code>: Sentence completion.</li>
+<li><code>x6</code>: Word meaning.</li>
+<li><code>x7</code>: Speeded addition.</li>
+<li><code>x8</code>: Speeded counting of dots.</li>
+<li><code>x9</code>: Speeded discrimination straight and curved
+capitals.</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-19</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> HolzingerSwineford1939</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co">#&gt;   id sex ageyr agemo  school grade       x1   x2    x3       x4   x5        x6</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co">#&gt; 1  1   1    13     1 Pasteur     7 3.333333 7.75 0.375 2.333333 5.75 1.2857143</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; 2  2   2    13     7 Pasteur     7 5.333333 5.25 2.125 1.666667 3.00 1.2857143</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt; 3  3   2    13     1 Pasteur     7 4.500000 5.25 1.875 1.000000 1.75 0.4285714</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co">#&gt; 4  4   1    13     2 Pasteur     7 5.333333 7.75 3.000 2.666667 4.50 2.4285714</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co">#&gt; 5  5   2    12     2 Pasteur     7 4.833333 4.75 0.875 2.666667 4.00 2.5714286</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co">#&gt; 6  6   2    14     1 Pasteur     7 5.333333 5.00 2.250 1.000000 3.00 0.8571429</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#&gt;         x7   x8       x9</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co">#&gt; 1 3.391304 5.75 6.361111</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#&gt; 2 3.782609 6.25 7.916667</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; 3 3.260870 3.90 4.416667</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt; 4 3.000000 5.30 4.861111</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="co">#&gt; 5 3.695652 6.30 5.916667</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co">#&gt; 6 4.347826 6.65 7.500000</span></span></code></pre></div>
+<p>We limit the data to the columns that will be used in the analysis.
+Data can be either in a matrix or data frame and must be numeric.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="ot">=</span> df[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)] </span></code></pre></div>
+</div>
+<div id="modeling-using-rem-for-exploratory-factor-analysis" class="section level1">
+<h1>Modeling using REM for Exploratory Factor Analysis</h1>
+<p>The REM_EFA function, specifically designed for conducting
+exploratory factor analysis, requires specification of three parameters:
+X, k_range and delta. The X parameter corresponds to the dataframe or
+matrix to be analyzed. The k_range parameter comprises a vector of
+numbers of factors to be modeled. In the example provided, the algorithm
+conducts exploratory analysis with 1 to 3 factors. Moreover, the delta
+parameter serves as a hyperparameter, ranging from 0 to 1, and it
+reflects the researcher’s tolerance level for potentially down-weighting
+data inaccurately within the model. The default for the delta parameter
+is 0.05.</p>
+<p>The output contains a separate list of estimates for each number of
+factors under consideration.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>model_EFA <span class="ot">=</span> <span class="fu">REM_EFA</span>(<span class="at">X =</span> data, <span class="at">k_range =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#&gt; EFA with 1 factors</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co">#&gt; getting EM estimates...</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co">#&gt; searching for optimal epsilon</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#&gt; getting REM estimates...</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#&gt; calculating standard errors...</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="co">#&gt; EFA with 2 factors</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co">#&gt; getting EM estimates...</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="co">#&gt; searching for optimal epsilon</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co">#&gt; getting REM estimates...</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="co">#&gt; calculating standard errors...</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a><span class="co">#&gt; EFA with 3 factors</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="co">#&gt; getting EM estimates...</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="co">#&gt; searching for optimal epsilon</span></span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co">#&gt; getting REM estimates...</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a><span class="co">#&gt; calculating standard errors...</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a><span class="co">#&gt; done</span></span></code></pre></div>
+</div>
+<div id="the-summary-function" class="section level1">
+<h1>The summary function</h1>
+<p>The summary function displays the estimates of the optimal model
+which is selected using the lowest score of Bayesian Information
+Criterion (BIC) among the number of factors considered. In other words,
+it selects the optimal model after considering the BIC in the models
+with 1, 2, and 3 factors.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">summary</span>(model_EFA)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="co">#&gt; -----Exploratory factor analysis using REM----- </span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; Call: REM_EFA(X = data, k_range = 1:3) </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; According to BIC evaluated at REM estimates,</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt;  the optimal number of factors is: 3 </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; REM estimates w/ delta = 0.05 ( epsilon = 9.014896e-07 )</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; Est. gamma = 0.846 </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; x1     4.905    0.113    0.708   -0.043   0.373</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; x2     5.648    0.052    0.393   -0.142   0.821</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; x3     2.050   -0.147    0.563    0.044   0.685</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; x4     2.875    0.799    0.098    0.002   0.295</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; x5     3.527    0.925   -0.060   -0.006   0.210</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; x6     2.258    0.834    0.013    0.012   0.304</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; x7     3.894    0.044   -0.132    0.781   0.460</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; x8     5.844   -0.044    0.046    0.765   0.450</span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; x9     5.731   -0.020    0.374    0.511   0.508</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000    0.286    0.340</span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.286    1.000    0.136</span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.340    0.136    1.000</span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; EM estimates </span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; x1     4.237    0.178    0.589    0.028   0.513</span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; x2     5.180    0.037    0.495   -0.126   0.749</span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; x3     1.993   -0.084    0.674    0.021   0.543</span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; x4     2.641    0.843    0.020    0.003   0.282</span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; x5     3.379    0.894   -0.067    0.004   0.244</span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; x6     2.003    0.810    0.075   -0.016   0.307</span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; x7     3.849    0.026   -0.150    0.762   0.497</span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; x8     5.468   -0.054    0.103    0.731   0.473</span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; x9     5.335    0.015    0.358    0.482   0.544</span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000    0.149    0.357</span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.149    1.000    0.030</span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.357    0.030    1.000</span></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; Difference (EM - REM) </span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt; x1    -0.668    0.066   -0.119    0.071   0.140</span></span>
+<span id="cb5-52"><a href="#cb5-52" tabindex="-1"></a><span class="co">#&gt; x2    -0.468   -0.015    0.101    0.016  -0.072</span></span>
+<span id="cb5-53"><a href="#cb5-53" tabindex="-1"></a><span class="co">#&gt; x3    -0.057    0.062    0.110   -0.023  -0.141</span></span>
+<span id="cb5-54"><a href="#cb5-54" tabindex="-1"></a><span class="co">#&gt; x4    -0.234    0.045   -0.078    0.001  -0.013</span></span>
+<span id="cb5-55"><a href="#cb5-55" tabindex="-1"></a><span class="co">#&gt; x5    -0.147   -0.030   -0.007    0.010   0.033</span></span>
+<span id="cb5-56"><a href="#cb5-56" tabindex="-1"></a><span class="co">#&gt; x6    -0.255   -0.024    0.062   -0.028   0.003</span></span>
+<span id="cb5-57"><a href="#cb5-57" tabindex="-1"></a><span class="co">#&gt; x7    -0.045   -0.018   -0.018   -0.019   0.037</span></span>
+<span id="cb5-58"><a href="#cb5-58" tabindex="-1"></a><span class="co">#&gt; x8    -0.376   -0.010    0.057   -0.034   0.023</span></span>
+<span id="cb5-59"><a href="#cb5-59" tabindex="-1"></a><span class="co">#&gt; x9    -0.396    0.035   -0.016   -0.029   0.035</span></span>
+<span id="cb5-60"><a href="#cb5-60" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-61"><a href="#cb5-61" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb5-62"><a href="#cb5-62" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb5-63"><a href="#cb5-63" tabindex="-1"></a><span class="co">#&gt; Factor 1    0.000   -0.137    0.016</span></span>
+<span id="cb5-64"><a href="#cb5-64" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.136    0.000   -0.106</span></span>
+<span id="cb5-65"><a href="#cb5-65" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.017   -0.106    0.000</span></span></code></pre></div>
+<p>From the REM and EM output above, note that <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_5\)</span>, and <span class="math inline">\(x_6\)</span> strongly load on Factor 1. Similarly,
+<span class="math inline">\(x_1\)</span>, <span class="math inline">\(x_2\)</span>, and <span class="math inline">\(x_3\)</span> moderately load on Factor 2 and that
+<span class="math inline">\(x_7\)</span>, <span class="math inline">\(x_8\)</span> and <span class="math inline">\(x_9\)</span> moderately load on Factor 3.
+Additionally, the gamma or average REM weight was 0.849, indicating that
+about 15 percent of the sample differed in the factor model parameters
+from the majority of the sample.</p>
+<div id="plot-distribution-of-the-weights" class="section level2">
+<h2>Plot Distribution of the weights</h2>
+<p>In the following plot we show the distribution of the weights to know
+how much people are getting down-weighted.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">hist</span>(model_EFA[[<span class="dv">2</span>]]<span class="sc">$</span>REM_output<span class="sc">$</span>weights,</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;REM Weight Distribution&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Weights&quot;</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p><img role="img" src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+<div id="confirmatory-factor-analysis" class="section level1">
+<h1>Confirmatory Factor Analysis</h1>
+<p>To conduct a confirmatory factor analysis, we need to specify a model
+which consists of structural equations relating the measured variables
+with the latent variables. We consider the following three factor
+model:</p>
+<p><span class="math display">\[\text{Visual} = x_1 + x_2 + x_3
+\]</span> <span class="math display">\[\text{Textual} = x_4 + x_5 + x_6
+\]</span> <span class="math display">\[\text{Speed} = x_7 + x_8 +
+x_9\]</span> To create the model parameter, first create a string
+variable that contains each equation in a new line and separate
+equalities using the <span class="math inline">\(=\sim\)</span> symbol
+as shown below.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Define your model as a string</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">&quot; Visual =~ x1  +  x2  +  x3 </span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="st">           Textual =~ x4 + x5 + x6</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="st">           Speed =~ x7 + x8 + x9</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="st">&quot;</span></span></code></pre></div>
+<p>This model is used to investigate the relationships between the
+latent variables “Visual”,“Textual”, and “Speed” and their respective
+sets of observed variables by examining how well the observed variables
+predict the underlying constructs. The model will estimate coefficients
+for these relationships, providing information about the strength and
+direction of these associations.</p>
+<p>Finally, use the REM_CFA() function to perform the confirmatory
+factor analysis. For this include X (the numeric data frame under
+consideration), delta (a hyperparameter), and the model parameter.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># CFA model with delta = 0.05</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>model_CFA <span class="ot">=</span> <span class="fu">REM_CFA</span>(<span class="at">X =</span> data, <span class="at">model =</span> model)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; CFA with 3 factors</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; getting EM estimates...</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; searching for optimal epsilon</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">#&gt; getting REM estimates...</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="co">#&gt; done</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="co">#&gt; calculating standard errors...</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="co">#&gt; done</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">summary</span>(model_CFA)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co">#&gt; -----Confirmatory factor analysis using REM----- </span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; Call: REM_CFA(X = data, model = model) </span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; Model:     Visual =~ x1  +  x2  +  x3 </span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt;            Textual =~ x4 + x5 + x6</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt;            Speed =~ x7 + x8 + x9</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;  </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; REM estimates w/ delta = 0.05 ( epsilon = 8.040226e-07 )</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; Est. gamma = 0.83 </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; x1     5.036    0.821    0.000    0.000   0.327</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; x2     5.756    0.359    0.000    0.000   0.871</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; x3     2.058    0.500    0.000    0.000   0.750</span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; x4     2.897    0.000   -0.843    0.000   0.289</span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; x5     3.558    0.000   -0.871    0.000   0.241</span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; x6     2.270    0.000   -0.840    0.000   0.295</span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; x7     3.895    0.000    0.000    0.634   0.598</span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; x8     5.859    0.000    0.000    0.752   0.435</span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; x9     5.758    0.000    0.000    0.657   0.569</span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000   -0.496    0.359</span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.497    1.000   -0.261</span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.360   -0.261    1.000</span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; EM estimates </span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; x1     4.236    0.764    0.000    0.000   0.416</span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; x2     5.180    0.427    0.000    0.000   0.818</span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; x3     1.993    0.585    0.000    0.000   0.657</span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; x4     2.637    0.000   -0.851    0.000   0.276</span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; x5     3.373    0.000   -0.855    0.000   0.270</span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; x6     2.001    0.000   -0.838    0.000   0.298</span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; x7     3.848    0.000    0.000    0.567   0.679</span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; x8     5.467    0.000    0.000    0.719   0.483</span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; x9     5.334    0.000    0.000    0.670   0.552</span></span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="co">#&gt; Factor 1    1.000   -0.459    0.478</span></span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="co">#&gt; Factor 2   -0.459    1.000   -0.285</span></span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.478   -0.285    1.000</span></span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="co">#&gt; Difference (EM - REM) </span></span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="co">#&gt;  -------------------------- </span></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt;    Intercept Factor 1 Factor 2 Factor 3 Res Var</span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt; x1    -0.800   -0.057    0.000    0.000   0.090</span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt; x2    -0.576    0.068    0.000    0.000  -0.053</span></span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; x3    -0.064    0.085    0.000    0.000  -0.092</span></span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt; x4    -0.260    0.000   -0.008    0.000  -0.013</span></span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; x5    -0.185    0.000    0.017    0.000   0.029</span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; x6    -0.269    0.000    0.002    0.000   0.003</span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt; x7    -0.047    0.000    0.000   -0.067   0.081</span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; x8    -0.392    0.000    0.000   -0.033   0.049</span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; x9    -0.424    0.000    0.000    0.013  -0.017</span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; Factor correlations </span></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt;          Factor 1 Factor 2 Factor 3</span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; Factor 1    0.000    0.038    0.119</span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; Factor 2    0.038    0.000   -0.024</span></span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; Factor 3    0.119   -0.024    0.000</span></span></code></pre></div>
+<p>The output above depicts estimates for the confirmatory analysis.
+Note that again <span class="math inline">\(x_4\)</span>, <span class="math inline">\(x_5\)</span>, and <span class="math inline">\(x_6\)</span> are strongly correlated with Factor
+1. Similarly, <span class="math inline">\(x_1\)</span>,<span class="math inline">\(x_2\)</span>, and <span class="math inline">\(x_3\)</span> are moderately correlated with factor
+2 and that <span class="math inline">\(x_7\)</span>, <span class="math inline">\(x_8\)</span> and <span class="math inline">\(x_9\)</span> are moderately correlated with Factor
+3. However, the gamma or average REM weight was 0.833. Note that the
+difference between the EM and REM intercepts are negative indicating
+that this down-weighted group has lower average item scores.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
