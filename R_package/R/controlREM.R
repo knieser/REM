@@ -16,11 +16,11 @@ controlREM <- function(steps = 25, tol = 1e-6, maxiter = 1e3, min_weights = 1e-3
 {
 
   if (!is.numeric(steps) || steps <= 1 || steps != floor(steps)) stop("steps must be a positive integer greater than 1")
-  if(tol <= 0 || tol >= 1) stop("tol values should be between 0 and 1")
+  if(tol <= 0 || tol >= 1) stop("tol values must be between 0 and 1")
   if (maxiter < 2) stop("maxiter must be greater than or equal to 2")
   if (min_weights <= 0 || min_weights >= 1) stop("min_weights must be greater than 0 and less than 1")
-  if(max_ueps < 0 || max_ueps > 1) stop("max_ueps values should be between 0 and 1")
-  if (chk_gamma <= 0 || chk_gamma >= 1) stop("min_weights must be greater than 0 and less than 1")
+  if(max_ueps < 0 || max_ueps > 1) stop("max_ueps values must be between 0 and 1")
+  if (chk_gamma <= 0 || chk_gamma >= 1) stop("chk_gamma must be greater than 0 and less than 1")
 
   output = list()
 
