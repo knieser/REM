@@ -19,7 +19,7 @@ library(REMLA)
 
 ### Vignette
 
-[REMLA tutorial](https://knieser.github.io/REM/REM_tutorial.html)
+[REMLA tutorial](https://knieser.github.io/REM/REMLA_tutorial.html)
 
 
 ## Psychological Methods paper
