@@ -3,6 +3,12 @@
 Individuals differ in many substantive ways that are not always captured through the assumed data-generating model. In an effort to address this, we present a robust estimation procedure based on the EM algorithm which we call REM (robust expectation-maximization). 
 
 ## R package
+
+<!-- badges: start -->  
+[![CRAN status](https://www.r-pkg.org/badges/version/REMLA)](https://CRAN.R-project.org/package=REMLA) 
+[![](https://cranlogs.r-pkg.org/badges/REMLA)](https://cran.r-project.org/package=REMLA)  
+<!-- badges: end -->
+
 This folder contains R package files to run exploratory and confirmatory factor analyses (EFAs and CFAs) using the REM algorithm. The following code can be used to download the latest version of the package to your RStudio from Github.
 
 ``` r
@@ -13,7 +19,7 @@ library(REMLA)
 
 ### Vignette
 
-[REMLA tutorial](R_package/doc/REMLA_tutorial.html)
+[REMLA tutorial](https://knieser.github.io/REM/REM_tutorial.html)
 
 
 ## Psychological Methods paper
