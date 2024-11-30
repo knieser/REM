@@ -31,7 +31,7 @@
 #' @returns The summary function can be used to obtain estimated parameters from the optimal model based on the BIC from the EM and REM algorithms.
 #' @author Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)
 #' @references Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
-#' @seealso [REM_CFA()], [summary.REMLA()] for more detailed summaries, [oblimin()] and [varimax()] for details on the rotation
+#' @seealso [REM_CFA()], [summary.REMLA()] for more detailed summaries, [GPArotation::oblimin()] and [varimax()] for details on the rotation
 #' @examples
 #' \donttest{
 #' # EFA of Holzinger-Swineford dataset
@@ -42,7 +42,7 @@
 #' model_EFA = REM_EFA(X = data, k_range = 1:3)
 #' summary(model_EFA)
 #' }
-#' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
+#' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm complete.cases
 #' @importFrom GPArotation oblimin
 #' @export
 

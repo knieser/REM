@@ -61,7 +61,7 @@ summary(model_EFA)
 Nieser, K. J., & Cochran, A. L. (2023). Addressing heterogeneous populations in latent variable settings through robust estimation. Psychological methods, 28(1), 39.
 }
 \seealso{
-\code{\link[=REM_CFA]{REM_CFA()}}, \code{\link[=summary.REMLA]{summary.REMLA()}} for more detailed summaries, \code{\link[=oblimin]{oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
+\code{\link[=REM_CFA]{REM_CFA()}}, \code{\link[=summary.REMLA]{summary.REMLA()}} for more detailed summaries, \code{\link[GPArotation:rotations]{GPArotation::oblimin()}} and \code{\link[=varimax]{varimax()}} for details on the rotation
 }
 \author{
 Bryan Ortiz-Torres (bortiztorres@wisc.edu); Kenneth Nieser (nieser@stanford.edu)

@@ -55,14 +55,6 @@ EMAlg <- function(X, k, constraints, rotation, ctrREM = controlREM()){
     pattern.id[idx] = j
   }
 
-  # patterns <- unique(constraints)
-  # pattern.id <- rep(NA, nrow(constraints))
-  # for (j in 1:nrow(patterns)) {
-  #   matches <- rowSums(constraints == patterns[j, , drop = FALSE]) == ncol(constraints)
-  #   pattern.id[matches] <- j
-  # }
-
-
   # EM algorithm
   obj = rep(-Inf, maxiter)
   for (iter in 2:maxiter){

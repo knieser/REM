@@ -40,7 +40,7 @@
 #' model_CFA = REM_CFA(X = data, model = model)
 #' summary(model_CFA)
 #' }
-#' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm
+#' @importFrom stats factanal quantile rnorm varimax na.omit cov2cor pnorm complete.cases
 #' @importFrom GPArotation oblimin
 #' @export
 REM_CFA <- function(X, delta = 0.05, model = NA, ctrREM = controlREM()){

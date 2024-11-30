@@ -1,10 +1,9 @@
 ---
-title: "REMLA_tutorial"
+title: "REMLA Tutorial"
 author: "Bryan Sa&#250;l Ortiz-Torres and Kenneth Nieser"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{REMLA_tutorial}
+  %\VignetteIndexEntry{REMLA Tutorial}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -27,7 +26,7 @@ This vignette introduces the use of the robust expectation maximization (REM) al
 
 # Data Description
 
-To illustrate the practical application of the REM (Robust Expectation Maximization) package for both Exploratory and Confirmatory Factor Analysis, we have chosen to employ it in the context of the Holzinger and Swineford dataset publicly available in the lavaan package.
+To illustrate the practical application of the REM (Robust Expectation Maximization) package for both exploratory and confirmatory Factor Analysis, we have chosen to employ it in the context of the Holzinger and Swineford dataset publicly available in the lavaan package.
 
 The Holzinger and Swineford dataset consist of mental ability test scores of seventh and eighth grade children from two different schools. Originally, this dataset consisted of 26 test scores but this modified version in the lavaan package consist of 15 variables, 9 of which are test scores.
 
@@ -63,7 +62,7 @@ data = df[,-c(1:6)]
 
 # Modeling using REM for Exploratory Factor Analysis
 
-The REM_EFA function, specifically designed for conducting exploratory factor analysis, requires specification of three parameters: X, k_range and delta. The X parameter corresponds to the dataframe or matrix to be analyzed. The k_range parameter comprises a vector of numbers of factors to be modeled. In the example provided, the algorithm conducts exploratory analysis with 1 to 3 factors. Moreover, the delta parameter serves as a hyper-parameter, ranging from 0 to 1, and it reflects the researcher's tolerance level for potentially down-weighting data inaccurately within the model. The default for the delta parameter is 0.05.
+The REM_EFA function, specifically designed for conducting exploratory factor analysis, requires specification of three parameters: X, k_range and delta. The X parameter corresponds to the dataframe or matrix to be analyzed. The k_range parameter comprises a vector of numbers of factors to be modeled. In the example provided, the algorithm conducts exploratory analysis with 1 to 3 factors. Moreover, the delta parameter serves as a hyperparameter, ranging from 0 to 1, and it reflects the researcher's tolerance level for potentially down-weighting data inaccurately within the model. The default for the delta parameter is 0.05.
 
 The output contains a separate list of estimates for each number of factors under consideration.
 
@@ -79,7 +78,7 @@ The summary function displays the estimates of the optimal model which is select
 summary(model_EFA)
 ```
 
-From the REM and EM output above, note that $x_4$, $x_5$, and $x_6$ strongly load on Factor 1. Similarly, $x_1$,$x_2$, and $x_3$ moderately load on Factor 2 and that $x_7$, $x_8$ and $x_9$ moderately load on Factor 3. Additionally, the gamma or average REM weight was 0.849, indicating that about 15 percent of the sample differed in the factor model parameters from the majority of the sample.
+From the REM and EM output above, note that $x_4$, $x_5$, and $x_6$ strongly load on Factor 1. Similarly, $x_1$, $x_2$, and $x_3$ moderately load on Factor 2 and that $x_7$, $x_8$ and $x_9$ moderately load on Factor 3. Additionally, the gamma or average REM weight was 0.849, indicating that about 15 percent of the sample differed in the factor model parameters from the majority of the sample.
 
 ## Plot Distribution of the weights
 
@@ -95,9 +94,9 @@ hist(model_EFA[[2]]$REM_output$weights,
 
 # Confirmatory Factor Analysis
 
-To conduct a confirmatory factor analysis,we need to specify a model which consists of structural equations relating the measured variables with the latent variables. We consider the following three factor model:
+To conduct a confirmatory factor analysis, we need to specify a model which consists of structural equations relating the measured variables with the latent variables. We consider the following three factor model:
 
-$$\text{Visual} = x_1 + x_2 + x_3 $$ $$\text{Textual} = x_4 + x_5 + x_6 $$ $$\text{Speed} = x_7 + x_8 + x_9$$ To create the model parameter, first create a string variable that contains each equation in a new line and separate equalities using the $=~$ symbol as shown below.
+$$\text{Visual} = x_1 + x_2 + x_3 $$ $$\text{Textual} = x_4 + x_5 + x_6 $$ $$\text{Speed} = x_7 + x_8 + x_9$$ To create the model parameter, first create a string variable that contains each equation in a new line and separate equalities using the $=\sim$ symbol as shown below.
 
 ```{r}
 # Define your model as a string
@@ -109,7 +108,7 @@ model <- " Visual =~ x1  +  x2  +  x3
 
 This model is used to investigate the relationships between the latent variables "Visual","Textual", and "Speed" and their respective sets of observed variables by examining how well the observed variables predict the underlying constructs. The model will estimate coefficients for these relationships, providing information about the strength and direction of these associations.
 
-Finally, use the REM_CFA() function to perform the confirmatory factor analysis. For this include X (the numeric data frame under consideration), delta (a hyper-parameter), and the model parameter.
+Finally, use the REM_CFA() function to perform the confirmatory factor analysis. For this include X (the numeric data frame under consideration), delta (a hyperparameter), and the model parameter.
 
 ```{r}
 # CFA model with delta = 0.05
